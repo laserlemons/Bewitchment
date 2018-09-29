@@ -13,6 +13,7 @@ import com.bewitchment.client.core.event.EnergyHUD;
 import com.bewitchment.client.core.event.ExtraBarButtonsHUD;
 import com.bewitchment.client.core.event.GirdleOfTheWoodedHUD;
 import com.bewitchment.client.core.event.MimicEventHandler;
+import com.bewitchment.client.core.event.MiscEventHandler;
 import com.bewitchment.client.core.event.PlayerSizeChanger;
 import com.bewitchment.client.core.event.RenderingHacks;
 import com.bewitchment.client.core.event.VampireBloodBarHUD;
@@ -33,6 +34,7 @@ import com.bewitchment.client.render.entity.renderer.RenderOwl;
 import com.bewitchment.client.render.entity.renderer.SpellRenderer;
 import com.bewitchment.client.render.tile.TileRenderCauldron;
 import com.bewitchment.client.render.tile.TileRenderGemBowl;
+import com.bewitchment.client.render.tile.TileRenderPlacedItem;
 import com.bewitchment.common.Bewitchment;
 import com.bewitchment.common.block.ModBlocks;
 import com.bewitchment.common.block.magic.BlockWitchFire;
@@ -53,6 +55,7 @@ import com.bewitchment.common.item.magic.ItemSpellPage;
 import com.bewitchment.common.lib.LibGui;
 import com.bewitchment.common.tile.tiles.TileEntityCauldron;
 import com.bewitchment.common.tile.tiles.TileEntityGemBowl;
+import com.bewitchment.common.tile.tiles.TileEntityPlacedItem;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -115,6 +118,7 @@ public class ClientProxy implements ISidedProxy {
 		MinecraftForge.EVENT_BUS.register(new WerewolfEventHandler());
 		MinecraftForge.EVENT_BUS.register(new RenderingHacks());
 		MinecraftForge.EVENT_BUS.register(new PlayerSizeChanger());
+		MinecraftForge.EVENT_BUS.register(new MiscEventHandler(Minecraft.getMinecraft()));
 	}
 
 	@Override
@@ -245,6 +249,7 @@ public class ClientProxy implements ISidedProxy {
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCauldron.class, new TileRenderCauldron());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGemBowl.class, new TileRenderGemBowl());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlacedItem.class, new TileRenderPlacedItem());
 	}
 
 	@Override
