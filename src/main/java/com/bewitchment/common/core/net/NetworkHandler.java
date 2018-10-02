@@ -37,6 +37,7 @@ public final class NetworkHandler {
 		registerSimpleMessage(WitchfireFlame.class, next(), Side.CLIENT);
 		registerSimpleMessage(EnergySync.class, next(), Side.CLIENT);
 		registerSimpleMessage(InfusionChangedMessage.class, next(), Side.CLIENT);
+		registerSimpleMessage(SmokeSpawn.class, next(), Side.CLIENT);
 		registerSimpleMessage(SizeChanged.class, next(), Side.CLIENT);
 
 		registerSimpleMessage(PlayerUsedAbilityMessage.class, next(), Side.SERVER);
