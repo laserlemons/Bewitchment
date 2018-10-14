@@ -3,10 +3,22 @@ package com.bewitchment.common.entity.living.familiar;
 import com.bewitchment.api.BewitchmentAPI;
 import com.bewitchment.api.entity.EntityFamiliar;
 import com.bewitchment.common.lib.LibMod;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAISit;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITargetNonTamed;
+import net.minecraft.entity.ai.EntityAIWatchClosest2;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
@@ -24,12 +36,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 /**
  * Created by Joseph on 10/2/2018.
  */
+
 public class EntitySnake extends EntityFamiliar {
 
 	private static final double maxHPWild = 8;
@@ -39,13 +51,14 @@ public class EntitySnake extends EntityFamiliar {
 
 	public EntitySnake(World worldIn) {
 		super(worldIn);
+		setSize(1F, .3F);
 	}
 
 	public static boolean isSnakeFodder(Entity entity) {
 		String className = entity.getClass().getSimpleName();
 		return entity instanceof EntityRabbit || entity instanceof EntitySpider || entity instanceof EntityChicken || className.contains("Rat") || className.contains("Mouse") || className.contains("Hamster") || className.contains("Vole") || className.contains("Shrew") || className.contains("Weasel") || className.contains("Mole") || className.contains("Blindworm") || className.contains("Frog") || className.contains("Toad") || className.contains("Newt") || className.contains("Salamander") || className.contains("GuineaPig") || className.contains("Cavy") || className.contains("Chick") || className.contains("Chinchilla");
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -80,6 +93,11 @@ public class EntitySnake extends EntityFamiliar {
 	}
 
 	@Override
+	public int getTotalVariants() {
+		return 5;
+	}
+
+	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
@@ -89,6 +107,7 @@ public class EntitySnake extends EntityFamiliar {
 		this.tasks.addTask(4, this.aiSit);
 		this.targetTasks.addTask(4, new EntityAITargetNonTamed<EntityLivingBase>(this, EntityLivingBase.class, false, EntitySnake::isSnakeFodder));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
 	}
 
 	@Override
@@ -107,30 +126,9 @@ public class EntitySnake extends EntityFamiliar {
 	}
 
 	@Override
-	public int getTotalVariants() {
-		return 5;
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity entityIn) {
-		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLivingBase) {
-				int i = 0;
-
-				if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
-					i = 9;
-				} else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
-					i = 17;
-				}
-
-				if (i > 0) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 22, 1));
-				}
-			}
-
-			return true;
-		}
-		return false;
+	public boolean attackEntityAsMob(Entity entity) {
+		getAttackTarget().addPotionEffect(new PotionEffect(MobEffects.POISON, 2000, 1));
+		return super.attackEntityAsMob(entity);
 	}
 
 	@Override
@@ -174,6 +172,13 @@ public class EntitySnake extends EntityFamiliar {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		if (!entityIn.equals(getOwner())) {
+			super.collideWithEntity(entityIn);
+		}
 	}
 
 	@Override

@@ -8,8 +8,6 @@ import com.bewitchment.api.ritual.EnumGlyphType;
 import com.bewitchment.api.spell.ISpell;
 import com.bewitchment.api.state.StateProperties;
 import com.bewitchment.client.ResourceLocations;
-import com.bewitchment.client.core.event.BloodViewerHUD;
-import com.bewitchment.client.core.event.EnergyHUD;
 import com.bewitchment.client.core.event.ExtraBarButtonsHUD;
 import com.bewitchment.client.core.event.GirdleOfTheWoodedHUD;
 import com.bewitchment.client.core.event.MimicEventHandler;
@@ -18,6 +16,10 @@ import com.bewitchment.client.core.event.PlayerSizeChanger;
 import com.bewitchment.client.core.event.RenderingHacks;
 import com.bewitchment.client.core.event.VampireBloodBarHUD;
 import com.bewitchment.client.core.event.WerewolfEventHandler;
+import com.bewitchment.client.core.hud.BloodViewerHUD;
+import com.bewitchment.client.core.hud.EnergyHUD;
+import com.bewitchment.client.core.hud.HudController;
+import com.bewitchment.client.core.hud.MoonHUD;
 import com.bewitchment.client.fx.ParticleF;
 import com.bewitchment.client.gui.GuiTarots;
 import com.bewitchment.client.handler.ColorPropertyHandler;
@@ -31,6 +33,7 @@ import com.bewitchment.client.render.entity.renderer.RenderBrewArrow;
 import com.bewitchment.client.render.entity.renderer.RenderBrewBottle;
 import com.bewitchment.client.render.entity.renderer.RenderBroom;
 import com.bewitchment.client.render.entity.renderer.RenderOwl;
+import com.bewitchment.client.render.entity.renderer.RenderSnake;
 import com.bewitchment.client.render.entity.renderer.SpellRenderer;
 import com.bewitchment.client.render.tile.TileRenderCauldron;
 import com.bewitchment.client.render.tile.TileRenderGemBowl;
@@ -50,12 +53,14 @@ import com.bewitchment.common.entity.EntityFlyingBroom;
 import com.bewitchment.common.entity.EntityLingeringBrew;
 import com.bewitchment.common.entity.EntitySpellCarrier;
 import com.bewitchment.common.entity.living.familiar.EntityOwl;
+import com.bewitchment.common.entity.living.familiar.EntitySnake;
 import com.bewitchment.common.item.ModItems;
 import com.bewitchment.common.item.magic.ItemSpellPage;
 import com.bewitchment.common.lib.LibGui;
 import com.bewitchment.common.tile.tiles.TileEntityCauldron;
 import com.bewitchment.common.tile.tiles.TileEntityGemBowl;
 import com.bewitchment.common.tile.tiles.TileEntityPlacedItem;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -68,9 +73,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -109,9 +114,12 @@ public class ClientProxy implements ISidedProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		registerRenders();
-		MinecraftForge.EVENT_BUS.register(new EnergyHUD());
+		
+		HudController.registerNewComponent(new BloodViewerHUD());
+		HudController.registerNewComponent(new EnergyHUD());
+		HudController.registerNewComponent(new MoonHUD());
+		
 		MinecraftForge.EVENT_BUS.register(new GirdleOfTheWoodedHUD());
-		MinecraftForge.EVENT_BUS.register(new BloodViewerHUD());
 		MinecraftForge.EVENT_BUS.register(new VampireBloodBarHUD());
 		MinecraftForge.EVENT_BUS.register(ExtraBarButtonsHUD.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(new WerewolfEventHandler());
@@ -208,11 +216,8 @@ public class ClientProxy implements ISidedProxy {
 		items.registerItemColorHandler(ColorPropertyHandler.INSTANCE, Item.getItemFromBlock(ModBlocks.lantern), Item.getItemFromBlock(ModBlocks.revealing_lantern));
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Bewitchment.instance, new GuiHandler());
-	}
-
-	@Override
-	public void displayRecordText(ITextComponent text) {
-		Minecraft.getMinecraft().ingameGUI.setRecordPlayingMessage(text.getFormattedText());
+		
+		ClientCommandHandler.instance.registerCommand(new ClientCommandGuiConfig());
 	}
 
 	@Override
@@ -244,6 +249,7 @@ public class ClientProxy implements ISidedProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityLingeringBrew.class, EmptyRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityAoE.class, EmptyRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityOwl.class, RenderOwl::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnake.class, RenderSnake::new);
 		MinecraftForge.EVENT_BUS.register(new RenderBatSwarm.PlayerHider());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCauldron.class, new TileRenderCauldron());

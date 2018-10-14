@@ -7,7 +7,8 @@ itemGroup.bewitchment_brews=Bewitchment - Brews
 //Config
 bewitchment.config.world_gen=World Gen
 bewitchment.config.energy_hud=Energy HUD
-bewitchment.config.brew_hud=Brews HUD
+bewitchment.config.blood_hud=Blood Viewer HUD
+bewitchment.config.moon_hud=Moon Warning HUD
 bewitchment.config.client=Client Settings
 
 //Gui
@@ -123,6 +124,9 @@ item.silver_helmet.name=Silver Helmet
 item.silver_chestplate.name=Silver Chestplate
 item.silver_leggings.name=Silver Leggings
 item.silver_boots.name=Silver Boots
+item.witches_hat.name=Witches Hat
+item.witches_robes.name=Witches Robes
+item.witches_pants.name=Witches Pants
 item.athame.name=Athame
 item.boline.name=Boline
 item.mortar_and_pestle.name=Mortar and Pestle
@@ -642,6 +646,23 @@ tooltip.potion.data=Potion Data:
 
 tooltip.shift_for_info=<hold shift for details>
 
+witch.tooltip.silver_pickaxe_description.name=Deals extra damage to undead
+witch.tooltip.silver_axe_description.name=Deals extra damage to undead
+witch.tooltip.silver_spade_description.name=Deals extra damage to undead
+witch.tooltip.silver_hoe_description.name=Deals extra damage to undead
+witch.tooltip.silver_sword_description.name=Deals extra damage to undead
+
+witch.tooltip.cold_iron_pickaxe_description.name=Deals extra damage to spirits
+witch.tooltip.cold_iron_axe_description.name=Deals extra damage to spirits
+witch.tooltip.cold_iron_spade_description.name=Deals extra damage to spirits
+witch.tooltip.cold_iron_hoe_description.name=Deals extra damage to spirits
+witch.tooltip.cold_iron_sword_description.name=Deals extra damage to spirits
+
+witch.tooltip.silver_chestplate_description.name=Protects against undead
+witch.tooltip.silver_helmet_description.name=Protects against undead
+witch.tooltip.silver_leggings_description.name=Protects against undead
+witch.tooltip.silver_boots_description.name=Protects against undead
+
 //Baubles
 item.shirt.name=Shirt
 item.ring.name=Ring
@@ -668,7 +689,7 @@ witch.tooltip.remedy_talisman_description.name=The gem in its core seems to abso
 witch.tooltip.girdle_of_the_wooded_description.name=This belt protects the wearer from harm by growing pieces of bark as armor
 witch.tooltip.mantle_description.name=A plain mantle. It's stylish, though...
 witch.tooltip.pouch_description.name=What secrets does it hold?
-witch.tooltip.wrathful_eye_description.name=//TODO | I don't know what this item is for
+witch.tooltip.wrathful_eye_description.name=This trinket commands respect from demons.
 witch.tooltip.hellish_bauble_description.name=This oddly shaped trinket will allow you to tap into a small portion of demonic power
 
 //Commands
@@ -731,6 +752,8 @@ ritual.bewitchment.yew_broom.name=Riual of the Rising Twigs
 ritual.bewitchment.elder_broom.name=Riual of the Rising Twigs
 ritual.bewitchment.juniper_broom.name=Riual of the Rising Twigs
 ritual.bewitchment.gateway.name=Ritual of the Gates
+ritual.bewitchment.shift_biome.name=Rite of the Falling Leaves
+ritual.bewitchment.nether_portal.name=Rite of the Profane Communion
 
 //Fortunes
 crystal_ball.error.ingredients=The future refuses to be perceived, something's wrong
@@ -819,3 +842,7 @@ tc.aspect.sol=The Sun
 //Mobs
 entity.entity_owl.name=Owl
 entity.entity_snake.name=Snake
+
+gui.bwguicfg.pick=§a§l[Click]§r to pick, click again to place
+gui.bwguicfg.orig=§b§l[Alt+Click]§r to reset to the original position
+gui.bwguicfg.hide=§b§l[Shift+Click]§r to hide/show
