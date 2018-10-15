@@ -1,24 +1,12 @@
 package com.bewitchment.common.entity.living.familiar;
 
-import com.bewitchment.api.BewitchmentAPI;
 import com.bewitchment.api.entity.EntityFamiliar;
 import com.bewitchment.common.lib.LibMod;
-
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAISit;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITargetNonTamed;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
@@ -26,6 +14,8 @@ import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -38,6 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Set;
+
 /**
  * Created by Joseph on 10/2/2018.
  */
@@ -47,6 +39,7 @@ public class EntitySnake extends EntityFamiliar {
 	private static final double maxHPWild = 8;
 	private static final ResourceLocation loot = new ResourceLocation(LibMod.MOD_ID, "entities/owl");
 	private static final String[] names = {};
+	private static final Set<Item> TAME_ITEMS = Sets.newHashSet(Items.RABBIT, Items.CHICKEN);
 	private static final DataParameter<Integer> TINT = EntityDataManager.createKey(EntitySnake.class, DataSerializers.VARINT);
 
 	public EntitySnake(World worldIn) {
@@ -154,24 +147,32 @@ public class EntitySnake extends EntityFamiliar {
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		if (!player.world.isRemote) {
-			if (!isFamiliar() && !isChild()) {
-				setTamedBy(player);
-				BewitchmentAPI.getAPI().bindFamiliarToPlayer(player, this);
-			} else if (player.getHeldItem(hand).isEmpty()) { // TODO temp code
-				if (player.isSneaking()) {
-					setFamiliar(false);
-					setTamed(false);
-					setOwnerId(null);
-				} else {
-					this.aiSit.setSitting(!isSitting());
-					this.setSitting(!isSitting());
+		{
+			ItemStack itemstack = player.getHeldItem(hand);
+
+			if (!this.isTamed() && TAME_ITEMS.contains(itemstack.getItem())) {
+				if (!player.capabilities.isCreativeMode) {
+					itemstack.shrink(1);
 				}
-			} else {
-				super.processInteract(player, hand);
+
+				if (!this.isSilent()) {
+					this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PARROT_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+				}
+
+				if (!this.world.isRemote) {
+					if (this.rand.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+						this.setTamedBy(player);
+						this.playTameEffect(true);
+						this.world.setEntityState(this, (byte) 7);
+					} else {
+						this.playTameEffect(false);
+						this.world.setEntityState(this, (byte) 6);
+					}
+				}
+				return true;
 			}
+			return true;
 		}
-		return true;
 	}
 
 	@Override

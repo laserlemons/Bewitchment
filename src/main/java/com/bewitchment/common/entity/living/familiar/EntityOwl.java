@@ -1,9 +1,9 @@
 package com.bewitchment.common.entity.living.familiar;
 
-import com.bewitchment.api.BewitchmentAPI;
 import com.bewitchment.api.entity.EntityFamiliar;
 import com.bewitchment.common.core.handler.ModSounds;
 import com.bewitchment.common.lib.LibMod;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -14,6 +14,8 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -28,10 +30,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Set;
+
 public class EntityOwl extends EntityFamiliar {
 
 	private static final double maxHPWild = 8;
 	private static final ResourceLocation loot = new ResourceLocation(LibMod.MOD_ID, "entities/owl");
+	private static final Set<Item> TAME_ITEMS = Sets.newHashSet(Items.RABBIT, Items.CHICKEN);
 	private static final String[] names = {"Owlmighty", "Owliver", "Owl Capone", "Owleister Crowley", "Owlie", "Owlivia", "Owlive", "Hedwig", "Archimedes", "Owlexander", "Robin Hoot", "Owlex", "Athena", "Strix", "Minerva", "Ascalaphus", "Lechuza", "Stolas", "Andras", "Kikiyaon", "Chickcharney", "Hootling"};
 	private static final DataParameter<Integer> TINT = EntityDataManager.createKey(EntityOwl.class, DataSerializers.VARINT);
 
@@ -98,24 +103,32 @@ public class EntityOwl extends EntityFamiliar {
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		if (!player.world.isRemote) {
-			if (!isFamiliar() && !isChild()) {
-				setTamedBy(player);
-				BewitchmentAPI.getAPI().bindFamiliarToPlayer(player, this);
-			} else if (player.getHeldItem(hand).isEmpty()) { // TODO temp code
-				if (player.isSneaking()) {
-					setFamiliar(false);
-					setTamed(false);
-					setOwnerId(null);
-				} else {
-					this.aiSit.setSitting(!isSitting());
-					this.setSitting(!isSitting());
+		{
+			ItemStack itemstack = player.getHeldItem(hand);
+
+			if (!this.isTamed() && TAME_ITEMS.contains(itemstack.getItem())) {
+				if (!player.capabilities.isCreativeMode) {
+					itemstack.shrink(1);
 				}
-			} else {
-				super.processInteract(player, hand);
+
+				if (!this.isSilent()) {
+					this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PARROT_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+				}
+
+				if (!this.world.isRemote) {
+					if (this.rand.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+						this.setTamedBy(player);
+						this.playTameEffect(true);
+						this.world.setEntityState(this, (byte) 7);
+					} else {
+						this.playTameEffect(false);
+						this.world.setEntityState(this, (byte) 6);
+					}
+				}
+				return true;
 			}
+			return true;
 		}
-		return true;
 	}
 
 	@Override
