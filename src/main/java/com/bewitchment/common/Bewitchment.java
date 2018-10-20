@@ -30,6 +30,7 @@ import com.bewitchment.common.core.capability.simple.BarkCapability;
 import com.bewitchment.common.core.capability.simple.SimpleCapability;
 import com.bewitchment.common.core.command.*;
 import com.bewitchment.common.core.gen.ModGen;
+import com.bewitchment.common.core.helper.MobHelper;
 import com.bewitchment.common.core.net.NetworkHandler;
 import com.bewitchment.common.core.net.messages.BarkGrow;
 import com.bewitchment.common.core.proxy.ISidedProxy;
@@ -93,6 +94,7 @@ public class Bewitchment {
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		ApiInstance.initAPI();
+		MobHelper.init();
 		CapabilityFortune.init();
 		InfusionCapability.init();
 		MagicPowerUsingItem.init();
