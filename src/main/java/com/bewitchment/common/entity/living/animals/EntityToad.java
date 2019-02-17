@@ -5,8 +5,6 @@ import com.bewitchment.api.familiars.EntityFamiliar;
 import com.bewitchment.common.item.ModItems;
 import com.bewitchment.common.lib.LibMod;
 import com.google.common.collect.Sets;
-import net.ilexiconn.llibrary.server.animation.Animation;
-import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.entity.Entity;
@@ -40,16 +38,18 @@ import java.util.Set;
  * Created by Joseph on 10/2/2018.
  */
 
-public class EntityToad extends EntityFamiliar implements IAnimatedEntity {
+public class EntityToad extends EntityFamiliar /*implements IAnimatedEntity*/ {
 
-	public static final Animation ANIMATION_LEAP = Animation.create(20, 15);
+	//public static final Animation ANIMATION_LEAP = Animation.create(20, 15);
 	private static final ResourceLocation loot = new ResourceLocation(LibMod.MOD_ID, "entities/toad");
 	private static final String[] names = {"Iron Henry", "Jimmy", "Kermit", "Frog-n-stein", "Prince Charming", "Heqet", "Hapi", "Aphrodite", "Physignathus", "Jiraiya", "Dat Boi", "Llamhigyn Y Dwr", "Michigan", "Wednesday", "Trevor", "Odin", "Woden", "Mercury", "Miércoles"};
 	private static final Set<Item> TAME_ITEMS = Sets.newHashSet(Items.SPIDER_EYE, Items.FERMENTED_SPIDER_EYE, ModItems.silver_scales, ModItems.envenomed_fang);
 	private static final DataParameter<Integer> TINT = EntityDataManager.createKey(EntityToad.class, DataSerializers.VARINT);
 	private static final double maxHPWild = 8;
-	private int animationTick;
-	private Animation currentAnimation;
+	//private int animationTick;
+	//private Animation currentAnimation;
+	private static final DataParameter<Integer> ANIMATION_TIME = EntityDataManager.<Integer>createKey(EntityToad.class, DataSerializers.VARINT);
+	private static final DataParameter<Float> ANIMATION_HEIGHT = EntityDataManager.<Float>createKey(EntityToad.class, DataSerializers.FLOAT);
 
 	public EntityToad(World worldIn) {
 		super(worldIn);
@@ -70,7 +70,9 @@ public class EntityToad extends EntityFamiliar implements IAnimatedEntity {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataManager.register(TINT, 0xFFFFFF);
+		this.dataManager.register(TINT, 0xFFFFFF);
+		this.dataManager.register(ANIMATION_TIME, Integer.valueOf(0));
+		this.dataManager.register(ANIMATION_HEIGHT, Float.valueOf(0.0F));
 		this.aiSit = new EntityAISit(this);
 	}
 
@@ -102,19 +104,18 @@ public class EntityToad extends EntityFamiliar implements IAnimatedEntity {
 
 	@Override
 	protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAIPanic(this, 0.7D));
+		this.tasks.addTask(0, new EntityAIPanic(this, 0.4D));
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 0.3D, false));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIWatchClosest2(this, EntityPlayer.class, 5f, 1f));
-		this.tasks.addTask(3, new EntityAIMate(this, 1d));
+		this.tasks.addTask(3, new EntityAIMate(this, 0.4d));
 		this.tasks.addTask(4, this.aiSit);
 		this.targetTasks.addTask(3, new EntityAITargetNonTamed<>(this, EntityPlayer.class, true, p -> p.getDistanceSq(this) < 1));
 		this.targetTasks.addTask(4, new EntityAITargetNonTamed<EntityLivingBase>(this, EntityLivingBase.class, false, e -> e instanceof EntityEndermite || e instanceof EntitySilverfish));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
-		this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
-		this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIFollowParent(this, 0.4D));
+		this.tasks.addTask(5, new EntityAIWander(this, 0.4D));
 	}
 
 	@Override
@@ -225,6 +226,34 @@ public class EntityToad extends EntityFamiliar implements IAnimatedEntity {
 		return 4;
 	}
 
+	public float postIncAnimation() {
+		this.dataManager.set(ANIMATION_TIME, this.dataManager.get(ANIMATION_TIME) + 1);
+		return (float) this.dataManager.get(ANIMATION_TIME);
+	}
+
+	public float getAnimationTime() {
+		return (float) this.dataManager.get(ANIMATION_TIME);
+	}
+
+	public void resetAnimationTime() {
+		this.dataManager.set(ANIMATION_TIME, 0);
+	}
+
+	public float getAnimationHeight() {
+		return (float) this.dataManager.get(ANIMATION_HEIGHT);
+	}
+
+	public float setAnimationHeight(float in) {
+		this.dataManager.set(ANIMATION_HEIGHT, in);
+		return in;
+	}
+
+	public void resetAnimationHeight() {
+		this.dataManager.set(ANIMATION_HEIGHT, 0.0F);
+	}
+
+	// LLibrary stuff \/
+	/*
 	@Override
 	public int getAnimationTick() {
 		return animationTick;
@@ -248,5 +277,5 @@ public class EntityToad extends EntityFamiliar implements IAnimatedEntity {
 	@Override
 	public Animation[] getAnimations() {
 		return new Animation[]{IAnimatedEntity.NO_ANIMATION, EntityToad.ANIMATION_LEAP};
-	}
+	}*/
 }
