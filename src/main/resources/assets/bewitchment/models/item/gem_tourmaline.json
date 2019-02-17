@@ -1,6 +1,7 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "bewitchment:items/tourmaline"
-  }
+	"parent": "item/generated",
+	"textures":
+	{
+		"layer0": "bewitchment:items/gem_tourmaline"
+	}
 }

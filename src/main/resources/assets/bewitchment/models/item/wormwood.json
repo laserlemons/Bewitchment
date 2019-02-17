@@ -1,6 +1,7 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "bewitchment:items/wormwood"
-  }
+	"parent": "item/generated",
+	"textures":
+	{
+		"layer0": "bewitchment:items/wormwood"
+	}
 }

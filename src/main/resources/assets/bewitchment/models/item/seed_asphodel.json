@@ -1,6 +1,7 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "bewitchment:items/seed_asphodel"
-  }
+	"parent": "item/generated",
+	"textures":
+	{
+		"layer0": "bewitchment:items/seed_asphodel"
+	}
 }

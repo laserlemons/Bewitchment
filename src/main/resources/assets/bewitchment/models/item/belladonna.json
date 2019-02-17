@@ -1,6 +1,7 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "bewitchment:items/belladonna"
-  }
+	"parent": "item/generated",
+	"textures":
+	{
+		"layer0": "bewitchment:items/belladonna"
+	}
 }

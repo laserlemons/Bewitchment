@@ -1,50 +1,23 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "cross"
-  },
-  "variants": {
-    "age": {
-      "0": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_0"
-        }
-      },
-      "1": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_1"
-        }
-      },
-      "2": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_2"
-        }
-      },
-      "3": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_3"
-        }
-      },
-      "4": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_4"
-        }
-      },
-      "5": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_5"
-        }
-      },
-      "6": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_6"
-        }
-      },
-      "7": {
-        "textures": {
-          "cross": "bewitchment:blocks/crop/crop_silphium_7"
-        }
-      }
-    }
-  }
+	"forge_marker": 1,
+	"defaults":
+	{
+		"model": "crop",
+		"textures":
+		{
+			"crop": "bewitchment:blocks/crop/crop_silphium_0"
+		}
+	},
+	"variants":
+	{
+		"inventory": [{}],
+		"normal": [{}],
+		"age=0": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_0"}}],
+		"age=1": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_1"}}],
+		"age=2": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_2"}}],
+		"age=3": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_3"}}],
+		"age=4": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_4"}}],
+		"age=5": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_5"}}],
+		"age=6": [{"textures": {"crop": "bewitchment:blocks/crop/crop_silphium_6"}}]
+	}
 }

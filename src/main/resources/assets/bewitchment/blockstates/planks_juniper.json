@@ -1,15 +1,16 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "all": "bewitchment:blocks/planks_juniper"
-    },
-    "model": "cube_all"
-  },
-  "variants": {
-    "normal": [
-      {
-      }
-    ]
-  }
+	"forge_marker": 1,
+	"defaults":
+	{
+		"model": "cube_all",
+		"textures":
+		{
+			"all": "bewitchment:blocks/planks_juniper"
+		}
+	},
+	"variants":
+	{
+		"inventory": [{}],
+		"normal": [{}]
+	}
 }

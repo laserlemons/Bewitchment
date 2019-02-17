@@ -1,7 +1,20 @@
 {
-  "variants": {
-    "normal": {
-      "model": "bewitchment:leaves_juniper"
-    }
-  }
+	"forge_marker": 1,
+	"defaults":
+	{
+		"model": "cube_all",
+		"textures":
+		{
+			"all": "bewitchment:blocks/leaves_juniper"
+		}
+	},
+	"variants":
+	{
+		"inventory": [{}],
+		"normal": [{}],
+		"check_decay=true,decayable=true": [{}],
+		"check_decay=true,decayable=false": [{}],
+		"check_decay=false,decayable=true": [{}],
+		"check_decay=false,decayable=false": [{}]
+	}
 }
