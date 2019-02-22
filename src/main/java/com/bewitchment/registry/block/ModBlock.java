@@ -14,6 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -39,6 +40,7 @@ public class ModBlock extends Block implements IOreName
 		if (mat == Material.PLANTS) Blocks.FIRE.setFireInfo(this, 60, 100);
 		if (mat == Material.TNT || mat == Material.VINE) Blocks.FIRE.setFireInfo(this, 15, 100);
 		if (mat == Material.WOOD) Blocks.FIRE.setFireInfo(this, 5, 20);
+		if (mat == Material.ICE) this.setDefaultSlipperiness(0.98f);
 		for (String ore : oreNames) this.oreNames.add(ore);
 		ModBlocks.REGISTRY.add(this);
 	}
@@ -53,7 +55,7 @@ public class ModBlock extends Block implements IOreName
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getRenderLayer()
 	{
-		return BlockRenderLayer.CUTOUT;
+		return getDefaultState().getMaterial() == Material.ICE || getDefaultState().getMaterial() == Material.GLASS ? BlockRenderLayer.TRANSLUCENT : BlockRenderLayer.CUTOUT;
 	}
 	
 	@Override
@@ -67,4 +69,25 @@ public class ModBlock extends Block implements IOreName
     {
 		return world.getBlockState(pos).getMaterial() == Material.WOOD;
     }
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean isFullCube(IBlockState state)
+    {
+		return state.getMaterial() == Material.ICE || state.getMaterial() == Material.GLASS ? false : super.isFullCube(state);
+    }
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean isOpaqueCube(IBlockState state)
+	{
+		return state.getMaterial() == Material.ICE || state.getMaterial() == Material.GLASS ? false : super.isOpaqueCube(state);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return super.shouldSideBeRendered(state, world, pos, face) && (state.getMaterial() == Material.ICE || state.getMaterial() == Material.GLASS ? world.getBlockState(pos.offset(face)).getBlock() != this : true);
+	}
 }

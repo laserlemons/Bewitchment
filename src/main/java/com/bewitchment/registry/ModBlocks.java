@@ -7,6 +7,7 @@ import com.bewitchment.core.Main;
 import com.bewitchment.registry.block.ModBlock;
 import com.bewitchment.registry.block.ModBlockCrop;
 import com.bewitchment.registry.block.ModBlockExp;
+import com.bewitchment.registry.block.ModBlockFence;
 import com.bewitchment.registry.block.ModBlockLeaves;
 import com.bewitchment.registry.block.ModBlockPillar;
 import com.bewitchment.registry.block.ModBlockSapling;
@@ -59,6 +60,9 @@ public class ModBlocks
 	public static final Block block_tigers_eye = new ModBlock("block_tigers_eye", Main.proxy.tab_blocks, Material.GLASS, SoundType.GLASS, 5, 30, "pickaxe", 1, "blockTigersEye");
 	public static final Block block_tourmaline = new ModBlock("block_tourmaline", Main.proxy.tab_blocks, Material.GLASS, SoundType.GLASS, 5, 30, "pickaxe", 1, "blockTourmaline");
 	
+	public static final Block fake_ice = new ModBlock("fake_ice", Main.proxy.tab_blocks, Material.ICE, SoundType.GLASS, 0.5f, 2.5f, "", 0);
+	public static final Block nethersteel = new ModBlock("nethersteel", Main.proxy.tab_blocks, Material.IRON, SoundType.METAL, 5, 30, "pickaxe", 1, "blockNethersteel");
+	
 	//Ores
 	public static final Block ore_silver = new ModBlock("ore_silver", Main.proxy.tab_blocks, Material.ROCK, SoundType.STONE, 3, 15, "pickaxe", 1, "oreSilver");
 	public static final Block ore_salt = new ModBlockExp("ore_salt", Main.proxy.tab_blocks, Material.ROCK, SoundType.STONE, 3, 15, "pickaxe", 1, "oreSalt");
@@ -97,6 +101,7 @@ public class ModBlocks
 	public static final Block stairs_elder = new ModBlockStairs("stairs_elder", Main.proxy.tab_blocks, planks_elder, "axe", 0, "stairWood");
 	public static final Block stairs_juniper = new ModBlockStairs("stairs_juniper", Main.proxy.tab_blocks, planks_juniper, "axe", 0, "stairWood");
 	public static final Block stairs_yew = new ModBlockStairs("stairs_yew", Main.proxy.tab_blocks, planks_yew, "axe", 0, "stairWood");
+	public static final Block stairs_fake_ice = new ModBlockStairs("stairs_fake_ice", Main.proxy.tab_blocks, fake_ice, "", 0);
 	
 	public static final ModBlockSlab slab_cypress = new ModBlockSlab("slab_cypress", Main.proxy.tab_blocks, planks_cypress, false, "slabWood");
 	public static final ModBlockSlab slab_cypress_double = new ModBlockSlab("slab_cypress_double", Main.proxy.tab_blocks, planks_cypress, true);
@@ -106,6 +111,10 @@ public class ModBlocks
 	public static final ModBlockSlab slab_juniper_double = new ModBlockSlab("slab_juniper_double", Main.proxy.tab_blocks, planks_juniper, true);
 	public static final ModBlockSlab slab_yew = new ModBlockSlab("slab_yew", Main.proxy.tab_blocks, planks_yew, false, "slabWood");
 	public static final ModBlockSlab slab_yew_double = new ModBlockSlab("slab_yew_double", Main.proxy.tab_blocks, planks_yew, true);
+	public static final ModBlockSlab slab_fake_ice = new ModBlockSlab("slab_fake_ice", Main.proxy.tab_blocks, fake_ice, false);
+	public static final ModBlockSlab slab_fake_ice_double = new ModBlockSlab("slab_fake_ice_double", Main.proxy.tab_blocks, fake_ice, true);
+	
+	public static final Block fence_fake_ice = new ModBlockFence("fence_fake_ice", Main.proxy.tab_blocks, fake_ice);
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event)

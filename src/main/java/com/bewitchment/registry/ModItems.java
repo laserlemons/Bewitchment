@@ -123,6 +123,7 @@ public class ModItems
 		registerSlab(event, ModBlocks.slab_elder, ModBlocks.slab_elder_double);
 		registerSlab(event, ModBlocks.slab_juniper, ModBlocks.slab_juniper_double);
 		registerSlab(event, ModBlocks.slab_yew, ModBlocks.slab_yew_double);
+		registerSlab(event, ModBlocks.slab_fake_ice, ModBlocks.slab_fake_ice_double);
 		for (Item item : REGISTRY)
 		{
 			event.getRegistry().register(item);
