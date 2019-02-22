@@ -8,11 +8,7 @@
 	],
 	"key":
 	{
-		"I":
-		{
-			"type": "forge:ore_dict",
-			"ore": "gemJasper"
-		}
+		"I": {"type": "forge:ore_dict", "ore": "gemJasper"}
 	},
 	"result":
 	{

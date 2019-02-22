@@ -8,11 +8,7 @@
 	],
 	"key":
 	{
-		"I":
-		{
-			"type": "forge:ore_dict",
-			"ore": "gemAmethyst"
-		}
+		"I": {"type": "forge:ore_dict", "ore": "gemAmethyst"}
 	},
 	"result":
 	{

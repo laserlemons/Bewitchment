@@ -8,11 +8,7 @@
 	],
 	"key":
 	{
-		"I":
-		{
-			"type": "forge:ore_dict",
-			"ore": "gemAlexandrite"
-		}
+		"I": {"type": "forge:ore_dict", "ore": "gemAlexandrite"}
 	},
 	"result":
 	{

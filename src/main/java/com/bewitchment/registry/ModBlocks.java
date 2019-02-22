@@ -9,6 +9,9 @@ import com.bewitchment.registry.block.ModBlockCrop;
 import com.bewitchment.registry.block.ModBlockExp;
 import com.bewitchment.registry.block.ModBlockLeaves;
 import com.bewitchment.registry.block.ModBlockPillar;
+import com.bewitchment.registry.block.ModBlockSapling;
+import com.bewitchment.registry.block.ModBlockSlab;
+import com.bewitchment.registry.block.ModBlockStairs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -44,6 +47,7 @@ public class ModBlocks
 	public static final ModBlockCrop crop_wormwood = new ModBlockCrop("crop_wormwood", 6);
 	
 	//Material Blocks
+	public static final Block block_cold_iron = new ModBlock("block_cold_iron", Main.proxy.tab_blocks, Material.IRON, SoundType.METAL, 5, 30, "pickaxe", 1, "blockColdIron");
 	public static final Block block_silver = new ModBlock("block_silver", Main.proxy.tab_blocks, Material.IRON, SoundType.METAL, 5, 30, "pickaxe", 1, "blockSilver");
 	public static final Block block_alexandrite = new ModBlock("block_alexandrite", Main.proxy.tab_blocks, Material.GLASS, SoundType.GLASS, 5, 30, "pickaxe", 1, "blockAlexandrite");
 	public static final Block block_amethyst = new ModBlock("block_amethyst", Main.proxy.tab_blocks, Material.GLASS, SoundType.GLASS, 5, 30, "pickaxe", 1, "blockAmethyst");
@@ -73,14 +77,33 @@ public class ModBlocks
 	public static final Block log_elder = new ModBlockPillar("log_elder", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 10, "axe", 0, "logWood");
 	public static final Block log_juniper = new ModBlockPillar("log_juniper", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 10, "axe", 0, "logWood");
 	public static final Block log_yew = new ModBlockPillar("log_yew", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 10, "axe", 0, "logWood");
-	public static final Block leaves_cypress = new ModBlockLeaves("leaves_cypress", Main.proxy.tab_blocks, "treeLeaves");
-	public static final Block leaves_elder = new ModBlockLeaves("leaves_elder", Main.proxy.tab_blocks, "treeLeaves");
-	public static final Block leaves_juniper = new ModBlockLeaves("leaves_juniper", Main.proxy.tab_blocks, "treeLeaves");
-	public static final Block leaves_yew = new ModBlockLeaves("leaves_yew", Main.proxy.tab_blocks, "treeLeaves");
+	public static final ModBlockLeaves leaves_cypress = new ModBlockLeaves("leaves_cypress", Main.proxy.tab_blocks, "treeLeaves");
+	public static final ModBlockLeaves leaves_elder = new ModBlockLeaves("leaves_elder", Main.proxy.tab_blocks, "treeLeaves");
+	public static final ModBlockLeaves leaves_juniper = new ModBlockLeaves("leaves_juniper", Main.proxy.tab_blocks, "treeLeaves");
+	public static final ModBlockLeaves leaves_yew = new ModBlockLeaves("leaves_yew", Main.proxy.tab_blocks, "treeLeaves");
 	public static final Block planks_cypress = new ModBlock("planks_cypress", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 15, "axe", 0, "plankWood");
 	public static final Block planks_elder = new ModBlock("planks_elder", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 15, "axe", 0, "plankWood");
 	public static final Block planks_juniper = new ModBlock("planks_juniper", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 15, "axe", 0, "plankWood");
 	public static final Block planks_yew = new ModBlock("planks_yew", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 15, "axe", 0, "plankWood");
+	public static final Block sapling_cypress = new ModBlockSapling("sapling_cypress", Main.proxy.tab_blocks, "treeSapling");
+	public static final Block sapling_elder = new ModBlockSapling("sapling_elder", Main.proxy.tab_blocks, "treeSapling");
+	public static final Block sapling_juniper = new ModBlockSapling("sapling_juniper", Main.proxy.tab_blocks, "treeSapling");
+	public static final Block sapling_yew = new ModBlockSapling("sapling_yew", Main.proxy.tab_blocks, "treeSapling");
+	
+	//Decoration
+	public static final Block stairs_cypress = new ModBlockStairs("stairs_cypress", Main.proxy.tab_blocks, planks_cypress, "axe", 0, "stairWood");
+	public static final Block stairs_elder = new ModBlockStairs("stairs_elder", Main.proxy.tab_blocks, planks_elder, "axe", 0, "stairWood");
+	public static final Block stairs_juniper = new ModBlockStairs("stairs_juniper", Main.proxy.tab_blocks, planks_juniper, "axe", 0, "stairWood");
+	public static final Block stairs_yew = new ModBlockStairs("stairs_yew", Main.proxy.tab_blocks, planks_yew, "axe", 0, "stairWood");
+	
+	public static final ModBlockSlab slab_cypress = new ModBlockSlab("slab_cypress", Main.proxy.tab_blocks, planks_cypress, false, "slabWood");
+	public static final ModBlockSlab slab_cypress_double = new ModBlockSlab("slab_cypress_double", Main.proxy.tab_blocks, planks_cypress, true);
+	public static final ModBlockSlab slab_elder = new ModBlockSlab("slab_elder", Main.proxy.tab_blocks, planks_elder, false, "slabWood");
+	public static final ModBlockSlab slab_elder_double = new ModBlockSlab("slab_elder_double", Main.proxy.tab_blocks, planks_elder, true);
+	public static final ModBlockSlab slab_juniper = new ModBlockSlab("slab_juniper", Main.proxy.tab_blocks, planks_juniper, false, "slabWood");
+	public static final ModBlockSlab slab_juniper_double = new ModBlockSlab("slab_juniper_double", Main.proxy.tab_blocks, planks_juniper, true);
+	public static final ModBlockSlab slab_yew = new ModBlockSlab("slab_yew", Main.proxy.tab_blocks, planks_yew, false, "slabWood");
+	public static final ModBlockSlab slab_yew_double = new ModBlockSlab("slab_yew_double", Main.proxy.tab_blocks, planks_yew, true);
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event)

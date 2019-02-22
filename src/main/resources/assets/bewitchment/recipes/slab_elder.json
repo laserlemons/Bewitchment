@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"III"
+	],
+	"key":
+	{
+		"I": {"item": "bewitchment:planks_elder"}
+	},
+	"result":
+	{
+		"item": "bewitchment:slab_elder",
+		"data": 0,
+		"count": 6
+	}
+}

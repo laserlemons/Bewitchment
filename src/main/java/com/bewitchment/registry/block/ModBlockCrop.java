@@ -95,7 +95,7 @@ public class ModBlockCrop extends BlockCrops
 	
 	public static class Kelp extends ModBlockCrop
 	{
-		private static final AxisAlignedBB[] KELP_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.25D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.95D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		private static final AxisAlignedBB[] KELP_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125, 1), new AxisAlignedBB(0, 0, 0, 1, 0.25, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75, 1), new AxisAlignedBB(0, 0, 0, 1, 0.95, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
 		
 		public Kelp(String name, int maxAge)
 		{
@@ -178,7 +178,7 @@ public class ModBlockCrop extends BlockCrops
 	
 	public static class Kenaf extends ModBlockCrop
 	{
-		private static final AxisAlignedBB[] KENAF_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		private static final AxisAlignedBB[] KENAF_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
 		
 		public Kenaf(String name, int maxAge)
 		{
@@ -267,8 +267,8 @@ public class ModBlockCrop extends BlockCrops
 	
 	public static class Silphium extends ModBlockCrop
 	{
-		private static final AxisAlignedBB[] SILPHIUM_AABB_BOTTOM = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
-		private static final AxisAlignedBB[] SILPHIUM_AABB_TOP = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.55D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1)};
+		private static final AxisAlignedBB[] SILPHIUM_AABB_BOTTOM = {new AxisAlignedBB(0, 0, 0, 1, 0.125, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		private static final AxisAlignedBB[] SILPHIUM_AABB_TOP = {new AxisAlignedBB(0, 0, 0, 1, 0.125, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5, 1), new AxisAlignedBB(0, 0, 0, 1, 0.55, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625, 1)};
 		
 		public Silphium(String name, int maxAge)
 		{

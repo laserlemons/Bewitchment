@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bewitchment.core.Main;
+import com.bewitchment.registry.block.ModBlockSlab;
 import com.bewitchment.registry.item.ModItem;
 import com.bewitchment.registry.item.ModItemSeed;
 import com.bewitchment.registry.item.tool.ModItemArmor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -17,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -37,18 +40,21 @@ public class ModItems
 	public static final ToolMaterial TOOL_CHALK = EnumHelper.addToolMaterial("chalk", 2, 300, 2F, 1.5F, 30);
 	
 	//Armor
-	public static final Item helmet_silver = new ModItemArmor.Silver("helmet_silver", Main.proxy.tab_equipment, EntityEquipmentSlot.HEAD);
-	public static final Item chestplate_silver = new ModItemArmor.Silver("chestplate_silver", Main.proxy.tab_equipment, EntityEquipmentSlot.CHEST);
-	public static final Item leggings_silver = new ModItemArmor.Silver("leggings_silver", Main.proxy.tab_equipment, EntityEquipmentSlot.LEGS);
-	public static final Item boots_silver = new ModItemArmor.Silver("boots_silver", Main.proxy.tab_equipment, EntityEquipmentSlot.FEET);
+	public static final Item helmet_cold_iron = new ModItemArmor.ColdIron("helmet_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.HEAD);
+	public static final Item chestplate_cold_iron = new ModItemArmor.ColdIron("chestplate_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.CHEST);
+	public static final Item leggings_cold_iron = new ModItemArmor.ColdIron("leggings_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.LEGS);
+	public static final Item boots_cold_iron = new ModItemArmor.ColdIron("boots_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.FEET);
 	
-	public static final Item helmet_cold_iron = new ModItemArmor.ColdIron("helmet_cold_iron", Main.proxy.tab_equipment, EntityEquipmentSlot.HEAD);
-	public static final Item chestplate_cold_iron = new ModItemArmor.ColdIron("chestplate_cold_iron", Main.proxy.tab_equipment, EntityEquipmentSlot.CHEST);
-	public static final Item leggings_cold_iron = new ModItemArmor.ColdIron("leggings_cold_iron", Main.proxy.tab_equipment, EntityEquipmentSlot.LEGS);
-	public static final Item boots_cold_iron = new ModItemArmor.ColdIron("boots_cold_iron", Main.proxy.tab_equipment, EntityEquipmentSlot.FEET);
+	public static final Item helmet_silver = new ModItemArmor.Silver("helmet_silver", Main.proxy.tab_items, EntityEquipmentSlot.HEAD);
+	public static final Item chestplate_silver = new ModItemArmor.Silver("chestplate_silver", Main.proxy.tab_items, EntityEquipmentSlot.CHEST);
+	public static final Item leggings_silver = new ModItemArmor.Silver("leggings_silver", Main.proxy.tab_items, EntityEquipmentSlot.LEGS);
+	public static final Item boots_silver = new ModItemArmor.Silver("boots_silver", Main.proxy.tab_items, EntityEquipmentSlot.FEET);
 	
 	//Material Items
+	public static final Item ingot_cold_iron = new ModItem("ingot_cold_iron", Main.proxy.tab_items, "ingotColdIron");
 	public static final Item ingot_silver = new ModItem("ingot_silver", Main.proxy.tab_items, "ingotSilver");
+	public static final Item nugget_cold_iron = new ModItem("nugget_cold_iron", Main.proxy.tab_items, "nuggetColdIron");
+	public static final Item nugget_silver = new ModItem("nugget_silver", Main.proxy.tab_items, "nuggetSilver");
 	public static final Item gem_alexandrite = new ModItem("gem_alexandrite", Main.proxy.tab_items, "gemAlexandrite");
 	public static final Item gem_amethyst = new ModItem("gem_amethyst", Main.proxy.tab_items, "gemAmethyst");
 	public static final Item gem_bloodstone = new ModItem("gem_bloodstone", Main.proxy.tab_items, "gemBloodstone");
@@ -106,17 +112,33 @@ public class ModItems
 	{
 		for (Block block : ModBlocks.REGISTRY)
 		{
-			if (!(block instanceof BlockCrops))
+			if (!(block instanceof BlockCrops) && !(block instanceof BlockSlab))
 			{
 				Item itemBlock = new ItemBlock(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey());
 				event.getRegistry().register(itemBlock);
 				Main.proxy.registerTexture(itemBlock);
 			}
 		}
+		registerSlab(event, ModBlocks.slab_cypress, ModBlocks.slab_cypress_double);
+		registerSlab(event, ModBlocks.slab_elder, ModBlocks.slab_elder_double);
+		registerSlab(event, ModBlocks.slab_juniper, ModBlocks.slab_juniper_double);
+		registerSlab(event, ModBlocks.slab_yew, ModBlocks.slab_yew_double);
 		for (Item item : REGISTRY)
 		{
 			event.getRegistry().register(item);
 			Main.proxy.registerTexture(item);
 		}
+	}
+	
+	private static void registerSlab(Register<Item> event, ModBlockSlab half, ModBlockSlab full)
+	{
+		Item itemSlab = new ItemSlab(half, half, full).setRegistryName(half.getRegistryName()).setTranslationKey(half.getTranslationKey());
+		Item itemSlabFull = new ItemSlab(full, half, full).setRegistryName(half.getRegistryName().toString() + "_double").setTranslationKey(half.getTranslationKey());
+		half.half = half;
+		full.half = half;
+		event.getRegistry().register(itemSlab);
+		Main.proxy.registerTexture(itemSlab);
+		event.getRegistry().register(itemSlabFull);
+		Main.proxy.registerTexture(itemSlabFull);
 	}
 }

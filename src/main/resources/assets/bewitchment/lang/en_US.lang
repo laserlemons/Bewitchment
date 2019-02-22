@@ -11,6 +11,7 @@ tile.bewitchment:ore_nuummite.name=Nuummite Ore
 tile.bewitchment:ore_tigers_eye.name=Tiger's Eye Ore
 tile.bewitchment:ore_tourmaline.name=Tourmaline Ore
 
+tile.bewitchment:block_cold_iron.name=Block of Cold Iron
 tile.bewitchment:block_silver.name=Block of Silver
 tile.bewitchment:block_alexandrite.name=Block of Alexandrite
 tile.bewitchment:block_amethyst.name=Block of Amethyst
@@ -30,23 +31,40 @@ tile.bewitchment:leaves_cypress.name=Cypress Leaves
 tile.bewitchment:leaves_elder.name=Elder Leaves
 tile.bewitchment:leaves_juniper.name=Juniper Leaves
 tile.bewitchment:leaves_yew.name=Yew Leaves
-tile.bewitchment:planks_cypress.name=Cypress Planks
-tile.bewitchment:planks_elder.name=Elder Planks
-tile.bewitchment:planks_juniper.name=Juniper Planks
-tile.bewitchment:planks_yew.name=Yew Planks
+tile.bewitchment:planks_cypress.name=Cypress Wood Planks
+tile.bewitchment:planks_elder.name=Elder Wood Planks
+tile.bewitchment:planks_juniper.name=Juniper Wood Planks
+tile.bewitchment:planks_yew.name=Yew Wood Planks
+tile.bewitchment:sapling_cypress.name=Cypress Sapling
+tile.bewitchment:sapling_elder.name=Elder Sapling
+tile.bewitchment:sapling_juniper.name=Juniper Sapling
+tile.bewitchment:sapling_yew.name=Yew Sapling
+
+tile.bewitchment:stairs_cypress.name=Cypress Wood Stairs
+tile.bewitchment:stairs_elder.name=Elder Wood Stairs
+tile.bewitchment:stairs_juniper.name=Juniper Wood Stairs
+tile.bewitchment:stairs_yew.name=Yew Wood Stairs
+
+tile.bewitchment:slab_cypress.name=Cypress Wood Slab
+tile.bewitchment:slab_elder.name=Elder Wood Slab
+tile.bewitchment:slab_juniper.name=Juniper Wood Slab
+tile.bewitchment:slab_yew.name=Yew Wood Slab
 
 #Items
-item.bewitchment:helmet_silver.name=Silver Helmet
-item.bewitchment:chestplate_silver.name=Silver Chestplate
-item.bewitchment:leggings_silver.name=Silver Leggings
-item.bewitchment:boots_silver.name=Silver Boots
-
 item.bewitchment:helmet_cold_iron.name=Cold Iron Helmet
 item.bewitchment:chestplate_cold_iron.name=Cold Iron Chestplate
 item.bewitchment:leggings_cold_iron.name=Cold Iron Leggings
 item.bewitchment:boots_cold_iron.name=Cold Iron Boots
 
+item.bewitchment:helmet_silver.name=Silver Helmet
+item.bewitchment:chestplate_silver.name=Silver Chestplate
+item.bewitchment:leggings_silver.name=Silver Leggings
+item.bewitchment:boots_silver.name=Silver Boots
+
+item.bewitchment:ingot_cold_iron.name=Cold Iron Ingot
 item.bewitchment:ingot_silver.name=Silver Ingot
+item.bewitchment:nugget_cold_iron.name=Cold Iron Nugget
+item.bewitchment:nugget_silver.name=Silver Nugget
 item.bewitchment:gem_alexandrite.name=Alexanrite
 item.bewitchment:gem_amethyst.name=Amethyst
 item.bewitchment:gem_bloodstone.name=Bloodstone
@@ -100,11 +118,10 @@ item.bewitchment:seed_wormwood.name=Wormwood Seeds
 
 #Info
 itemGroup.bewitchment_blocks=Blocks (Bewitchment)
-itemGroup.bewitchment_equipment=Equipment (Bewitchment)
 itemGroup.bewitchment_items=Items (Bewitchment)
-
-tooltip.armor_description_silver=Protects against undead
-tooltip.tool_description_silver=Deals extra damage to undead
 
 tooltip.armor_description_cold_iron=Protects against demons and spirits
 tooltip.tool_description_cold_iron=Deals extra damage to spirits
+
+tooltip.armor_description_silver=Protects against undead
+tooltip.tool_description_silver=Deals extra damage to undead

@@ -8,8 +8,6 @@ import com.bewitchment.registry.gen.WorldGenOres;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,21 +21,12 @@ public class CommonProxy
 {
 	public ModConfig config;
 	
-	public final CreativeTabs tab_equipment = new CreativeTabs(Main.MOD_ID + "_equipment")
-	{
-		@Override
-		public ItemStack createIcon()
-		{
-			return new ItemStack(Items.IRON_CHESTPLATE);
-		}
-	};
-	
 	public final CreativeTabs tab_blocks = new CreativeTabs(Main.MOD_ID + "_blocks")
 	{
 		@Override
 		public ItemStack createIcon()
 		{
-			return new ItemStack(Blocks.PLANKS);
+			return new ItemStack(ModBlocks.block_alexandrite);
 		}
 	};
 	
@@ -46,7 +35,7 @@ public class CommonProxy
 		@Override
 		public ItemStack createIcon()
 		{
-			return new ItemStack(Items.SNOWBALL);
+			return new ItemStack(ModItems.aconitum);
 		}
 	};
 	
@@ -77,6 +66,10 @@ public class CommonProxy
 		ModBlocks.crop_tulsi.setSeed(ModItems.seed_tulsi).setCrop(ModItems.tulsi);
 		ModBlocks.crop_white_sage.setSeed(ModItems.seed_white_sage).setCrop(ModItems.white_sage);
 		ModBlocks.crop_wormwood.setSeed(ModItems.seed_wormwood).setCrop(ModItems.wormwood);
+		ModBlocks.leaves_cypress.drop = Item.getItemFromBlock(ModBlocks.sapling_cypress);
+		ModBlocks.leaves_elder.drop = Item.getItemFromBlock(ModBlocks.sapling_elder);
+		ModBlocks.leaves_juniper.drop = Item.getItemFromBlock(ModBlocks.sapling_juniper);
+		ModBlocks.leaves_yew.drop = Item.getItemFromBlock(ModBlocks.sapling_yew);
 		this.registerEventHandlers();
 		this.registerWorldGenerators();
 	}

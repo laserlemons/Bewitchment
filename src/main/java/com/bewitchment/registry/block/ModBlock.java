@@ -10,9 +10,13 @@ import com.bewitchment.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,6 +34,11 @@ public class ModBlock extends Block implements IOreName
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setHarvestLevel(tool, level);
+		if (mat == Material.CARPET) Blocks.FIRE.setFireInfo(this, 60, 20);
+		if (mat == Material.CLOTH || mat == Material.LEAVES) Blocks.FIRE.setFireInfo(this, 30, 60);
+		if (mat == Material.PLANTS) Blocks.FIRE.setFireInfo(this, 60, 100);
+		if (mat == Material.TNT || mat == Material.VINE) Blocks.FIRE.setFireInfo(this, 15, 100);
+		if (mat == Material.WOOD) Blocks.FIRE.setFireInfo(this, 5, 20);
 		for (String ore : oreNames) this.oreNames.add(ore);
 		ModBlocks.REGISTRY.add(this);
 	}
@@ -46,4 +55,16 @@ public class ModBlock extends Block implements IOreName
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
+	
+	@Override
+	public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        return state.getMaterial() == Material.WOOD;
+    }
+	
+	@Override
+	public boolean isWood(IBlockAccess world, BlockPos pos)
+    {
+		return world.getBlockState(pos).getMaterial() == Material.WOOD;
+    }
 }

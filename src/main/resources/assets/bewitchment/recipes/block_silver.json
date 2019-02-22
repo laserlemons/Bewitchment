@@ -8,11 +8,7 @@
 	],
 	"key":
 	{
-		"I":
-		{
-			"type": "forge:ore_dict",
-			"ore": "ingotSilver"
-		}
+		"I": {"type": "forge:ore_dict", "ore": "ingotSilver"}
 	},
 	"result":
 	{

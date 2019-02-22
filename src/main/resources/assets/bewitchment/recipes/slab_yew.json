@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"III"
+	],
+	"key":
+	{
+		"I": {"item": "bewitchment:planks_yew"}
+	},
+	"result":
+	{
+		"item": "bewitchment:slab_yew",
+		"data": 0,
+		"count": 6
+	}
+}

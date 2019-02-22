@@ -8,11 +8,7 @@
 	],
 	"key":
 	{
-		"I":
-		{
-			"type": "forge:ore_dict",
-			"ore": "gemNuummite"
-		}
+		"I": {"type": "forge:ore_dict", "ore": "gemNuummite"}
 	},
 	"result":
 	{
