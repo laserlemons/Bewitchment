@@ -4,6 +4,7 @@ import com.bewitchment.registry.IOreName;
 import com.bewitchment.registry.ModBlocks;
 import com.bewitchment.registry.ModItems;
 import com.bewitchment.registry.event.BlockDropHandler;
+import com.bewitchment.registry.gen.WorldGenCoquina;
 import com.bewitchment.registry.gen.WorldGenOres;
 
 import net.minecraft.block.Block;
@@ -86,6 +87,7 @@ public class CommonProxy
 	private void registerWorldGenerators()
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenCoquina(), 0);
 	}
 	
 	public void registerTexture(Item item)

@@ -72,6 +72,8 @@ public class ModBlocks
 	public static final Block ore_tigers_eye = new ModBlockExp("ore_tigers_eye", Main.proxy.tab_blocks, Material.ROCK, SoundType.STONE, 3, 15, "pickaxe", 1, "oreTigersEye");
 	public static final Block ore_tourmaline = new ModBlockExp("ore_tourmaline", Main.proxy.tab_blocks, Material.ROCK, SoundType.STONE, 3, 15, "pickaxe", 1, "oreTourmaline");
 	
+	public static final Block coquina = new ModBlock("coquina", Main.proxy.tab_blocks, Material.ROCK, SoundType.STONE, 5, 30, "pickaxe", 0, "coquina");
+	
 	//Trees
 	public static final Block log_cypress = new ModBlockPillar("log_cypress", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 10, "axe", 0, "logWood");
 	public static final Block log_elder = new ModBlockPillar("log_elder", Main.proxy.tab_blocks, Material.WOOD, SoundType.WOOD, 2, 10, "axe", 0, "logWood");

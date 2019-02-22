@@ -49,6 +49,7 @@ public class ModBlockSlab extends BlockSlab implements IOreName
 		if (base.getDefaultState().getMaterial() == Material.WOOD) Blocks.FIRE.setFireInfo(this, 5, 20);
 		this.setDefaultState(isDouble ? blockState.getBaseState().withProperty(BlockPurpurSlab.VARIANT, BlockPurpurSlab.Variant.DEFAULT) : blockState.getBaseState().withProperty(BlockPurpurSlab.VARIANT, BlockPurpurSlab.Variant.DEFAULT).withProperty(HALF, EnumBlockHalf.BOTTOM));
 		this.isDouble = isDouble;
+		this.fullBlock = isDouble;
 		for (String ore : oreNames) this.oreNames.add(ore);
 		ModBlocks.REGISTRY.add(this);
 	}
