@@ -1,5 +1,9 @@
 package com.bewitchment.core;
 
+import com.bewitchment.core.api.transformation.ITransformation;
+import com.bewitchment.core.api.transformation.ITransformation.Transformation;
+import com.bewitchment.core.api.transformation.ITransformation.Transformation.TransformationHandler;
+import com.bewitchment.core.api.transformation.ITransformation.Transformation.TransformationStorage;
 import com.bewitchment.registry.IOreName;
 import com.bewitchment.registry.ModBlocks;
 import com.bewitchment.registry.ModItems;
@@ -12,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -43,6 +48,7 @@ public class CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		this.config = new ModConfig(event.getSuggestedConfigurationFile());
+		registerCapabilities();
 	}
 	
 	public void init(FMLInitializationEvent event)
@@ -79,9 +85,15 @@ public class CommonProxy
 	{
 	}
 	
+	private void registerCapabilities()
+	{
+		CapabilityManager.INSTANCE.register(ITransformation.class, new TransformationStorage(), Transformation::new);
+	}
+	
 	private void registerEventHandlers()
 	{
 		MinecraftForge.EVENT_BUS.register(new BlockDropHandler());
+		MinecraftForge.EVENT_BUS.register(new TransformationHandler());
 	}
 	
 	private void registerWorldGenerators()
