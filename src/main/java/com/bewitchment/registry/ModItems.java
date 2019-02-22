@@ -82,24 +82,24 @@ public class ModItems
 	public static final Item wormwood = new ModItem("wormwood", Main.proxy.tab_items, "cropWormwood", "listAllspice");
 	
 	//Seeds
-	public static final Item seed_aconitum = new ModItemSeed("seed_aconitum", Main.proxy.tab_items, ModBlocks.crop_aconitum, Blocks.FARMLAND);
-	public static final Item seed_asphodel = new ModItemSeed("seed_asphodel", Main.proxy.tab_items, ModBlocks.crop_asphodel, Blocks.FARMLAND);
-	public static final Item seed_belladonna = new ModItemSeed("seed_belladonna", Main.proxy.tab_items, ModBlocks.crop_belladonna, Blocks.FARMLAND);
-	public static final Item seed_chrysanthemum = new ModItemSeed("seed_chrysanthemum", Main.proxy.tab_items, ModBlocks.crop_chrysanthemum, Blocks.FARMLAND);
-	public static final Item seed_garlic = new ModItemSeed("seed_garlic", Main.proxy.tab_items, ModBlocks.crop_garlic, Blocks.FARMLAND);
-	public static final Item seed_ginger = new ModItemSeed("seed_ginger", Main.proxy.tab_items, ModBlocks.crop_ginger, Blocks.FARMLAND);
-	public static final Item seed_hellebore = new ModItemSeed("seed_hellebore", Main.proxy.tab_items, ModBlocks.crop_hellebore, Blocks.FARMLAND);
-	public static final Item seed_kelp = new ModItemSeed("seed_kelp", Main.proxy.tab_items, ModBlocks.crop_kelp, Blocks.DIRT);
-	public static final Item seed_kenaf = new ModItemSeed("seed_kenaf", Main.proxy.tab_items, ModBlocks.crop_kenaf, Blocks.FARMLAND);
-	public static final Item seed_lavender = new ModItemSeed("seed_lavender", Main.proxy.tab_items, ModBlocks.crop_lavender, Blocks.FARMLAND);
-	public static final Item seed_mandrake = new ModItemSeed("seed_mandrake", Main.proxy.tab_items, ModBlocks.crop_mandrake, Blocks.FARMLAND);
-	public static final Item seed_mint = new ModItemSeed("seed_mint", Main.proxy.tab_items, ModBlocks.crop_mint, Blocks.FARMLAND);
-	public static final Item seed_sagebrush = new ModItemSeed("seed_sagebrush", Main.proxy.tab_items, ModBlocks.crop_sagebrush, Blocks.FARMLAND);
-	public static final Item seed_silphium = new ModItemSeed("seed_silphium", Main.proxy.tab_items, ModBlocks.crop_silphium, Blocks.FARMLAND);
-	public static final Item seed_thistle = new ModItemSeed("seed_thistle", Main.proxy.tab_items, ModBlocks.crop_thistle, Blocks.FARMLAND);
-	public static final Item seed_tulsi = new ModItemSeed("seed_tulsi", Main.proxy.tab_items, ModBlocks.crop_tulsi, Blocks.FARMLAND);
-	public static final Item seed_white_sage = new ModItemSeed("seed_white_sage", Main.proxy.tab_items, ModBlocks.crop_white_sage, Blocks.FARMLAND);
-	public static final Item seed_wormwood = new ModItemSeed("seed_wormwood", Main.proxy.tab_items, ModBlocks.crop_wormwood, Blocks.FARMLAND);
+	public static final ModItemSeed seed_aconitum = new ModItemSeed("seed_aconitum", Main.proxy.tab_items, ModBlocks.crop_aconitum, Blocks.FARMLAND);
+	public static final ModItemSeed seed_asphodel = new ModItemSeed("seed_asphodel", Main.proxy.tab_items, ModBlocks.crop_asphodel, Blocks.FARMLAND);
+	public static final ModItemSeed seed_belladonna = new ModItemSeed("seed_belladonna", Main.proxy.tab_items, ModBlocks.crop_belladonna, Blocks.FARMLAND);
+	public static final ModItemSeed seed_chrysanthemum = new ModItemSeed("seed_chrysanthemum", Main.proxy.tab_items, ModBlocks.crop_chrysanthemum, Blocks.FARMLAND);
+	public static final ModItemSeed seed_garlic = new ModItemSeed("seed_garlic", Main.proxy.tab_items, ModBlocks.crop_garlic, Blocks.FARMLAND);
+	public static final ModItemSeed seed_ginger = new ModItemSeed("seed_ginger", Main.proxy.tab_items, ModBlocks.crop_ginger, Blocks.FARMLAND);
+	public static final ModItemSeed seed_hellebore = new ModItemSeed("seed_hellebore", Main.proxy.tab_items, ModBlocks.crop_hellebore, Blocks.FARMLAND);
+	public static final ModItemSeed seed_kelp = new ModItemSeed("seed_kelp", Main.proxy.tab_items, ModBlocks.crop_kelp, Blocks.DIRT, Blocks.SAND, Blocks.GRAVEL);
+	public static final ModItemSeed seed_kenaf = new ModItemSeed("seed_kenaf", Main.proxy.tab_items, ModBlocks.crop_kenaf, Blocks.FARMLAND);
+	public static final ModItemSeed seed_lavender = new ModItemSeed("seed_lavender", Main.proxy.tab_items, ModBlocks.crop_lavender, Blocks.FARMLAND);
+	public static final ModItemSeed seed_mandrake = new ModItemSeed("seed_mandrake", Main.proxy.tab_items, ModBlocks.crop_mandrake, Blocks.FARMLAND);
+	public static final ModItemSeed seed_mint = new ModItemSeed("seed_mint", Main.proxy.tab_items, ModBlocks.crop_mint, Blocks.FARMLAND);
+	public static final ModItemSeed seed_sagebrush = new ModItemSeed("seed_sagebrush", Main.proxy.tab_items, ModBlocks.crop_sagebrush, Blocks.FARMLAND);
+	public static final ModItemSeed seed_silphium = new ModItemSeed("seed_silphium", Main.proxy.tab_items, ModBlocks.crop_silphium, Blocks.FARMLAND);
+	public static final ModItemSeed seed_thistle = new ModItemSeed("seed_thistle", Main.proxy.tab_items, ModBlocks.crop_thistle, Blocks.FARMLAND);
+	public static final ModItemSeed seed_tulsi = new ModItemSeed("seed_tulsi", Main.proxy.tab_items, ModBlocks.crop_tulsi, Blocks.FARMLAND);
+	public static final ModItemSeed seed_white_sage = new ModItemSeed("seed_white_sage", Main.proxy.tab_items, ModBlocks.crop_white_sage, Blocks.FARMLAND);
+	public static final ModItemSeed seed_wormwood = new ModItemSeed("seed_wormwood", Main.proxy.tab_items, ModBlocks.crop_wormwood, Blocks.FARMLAND);
 
 	@SubscribeEvent
 	public static void register(Register<Item> event)

@@ -15,6 +15,10 @@
 		"age=0": [{"textures": {"crop": "bewitchment:blocks/crop/crop_garlic_0"}}],
 		"age=1": [{"textures": {"crop": "bewitchment:blocks/crop/crop_garlic_1"}}],
 		"age=2": [{"textures": {"crop": "bewitchment:blocks/crop/crop_garlic_2"}}],
-		"age=3": [{"textures": {"crop": "bewitchment:blocks/crop/crop_garlic_3"}}]
+		"age=3": [{"textures": {"crop": "bewitchment:blocks/crop/crop_garlic_3"}}],
+		"age=4": [{}],
+		"age=5": [{}],
+		"age=6": [{}],
+		"age=7": [{}]
 	}
 }

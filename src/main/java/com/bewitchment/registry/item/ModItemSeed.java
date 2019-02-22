@@ -1,12 +1,14 @@
 package com.bewitchment.registry.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -19,13 +21,14 @@ import net.minecraftforge.common.IPlantable;
 
 public class ModItemSeed extends ModItem implements IPlantable
 {
-	private final Block crop, soil;
+	public final Block crop;
+	public final List<Block> soil = new ArrayList<Block>();
 	
-	public ModItemSeed(String name, CreativeTabs tab, Block crop, Block soil, String... oreNames)
+	public ModItemSeed(String name, CreativeTabs tab, Block crop, Block... soil)
 	{
-		super(name, tab, oreNames);
+		super(name, tab);
 		this.crop = crop;
-		this.soil = soil;
+		for (Block block : soil) this.soil.add(block);
 	}
 	
 	@Override
@@ -33,7 +36,7 @@ public class ModItemSeed extends ModItem implements IPlantable
     {
         ItemStack stack = player.getHeldItem(hand);
         IBlockState state = world.getBlockState(pos);
-        if (face == EnumFacing.UP && player.canPlayerEdit(pos.offset(face), face, stack) && state.getBlock() == soil && (soil == Blocks.DIRT ? world.getBlockState(pos.up()).getBlock() == Blocks.WATER : (world.isAirBlock(pos.up()) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this))))
+        if (player.canPlayerEdit(pos.offset(face), face, stack) && soil.contains(state.getBlock()) && face == EnumFacing.UP)
         {
             world.setBlockState(pos.up(), this.crop.getDefaultState());
             if (player instanceof EntityPlayerMP) CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos.up(), stack);

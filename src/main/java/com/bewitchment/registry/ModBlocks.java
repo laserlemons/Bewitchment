@@ -37,7 +37,7 @@ public class ModBlocks
 	public static final ModBlockCrop crop_mandrake = new ModBlockCrop("crop_mandrake", 3);
 	public static final ModBlockCrop crop_mint = new ModBlockCrop.Mint("crop_mint", 3);
 	public static final ModBlockCrop crop_sagebrush = new ModBlockCrop("crop_sagebrush", 3);
-	public static final ModBlockCrop crop_silphium = new ModBlockCrop.Silphium("crop_silphium", 6);
+	public static final ModBlockCrop crop_silphium = new ModBlockCrop.Silphium("crop_silphium", 5);
 	public static final ModBlockCrop crop_thistle = new ModBlockCrop.Thistle("crop_thistle", 3);
 	public static final ModBlockCrop crop_tulsi = new ModBlockCrop("crop_tulsi", 3);
 	public static final ModBlockCrop crop_white_sage = new ModBlockCrop("crop_white_sage", 3);

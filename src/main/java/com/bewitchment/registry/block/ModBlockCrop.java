@@ -4,31 +4,34 @@ import java.util.Random;
 
 import com.bewitchment.core.Main;
 import com.bewitchment.registry.ModBlocks;
+import com.bewitchment.registry.item.ModItemSeed;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 
 public class ModBlockCrop extends BlockCrops
 {
+	private static final PropertyBool TOP = PropertyBool.create("top");
+	
 	private int maxAge;
-	private Item seed, crop;
+	private ModItemSeed seed;
+	private Item crop;
 	
 	public ModBlockCrop(String name, int maxAge)
 	{
@@ -41,24 +44,18 @@ public class ModBlockCrop extends BlockCrops
 	}
 	
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face)
-	{
-		return BlockFaceShape.UNDEFINED;
-	}
-	
-	@Override
 	public int getMaxAge()
 	{
 		return maxAge;
 	}
 	
 	@Override
-	public Item getSeed()
+	public ModItemSeed getSeed()
 	{
 		return seed;
 	}
 	
-	public ModBlockCrop setSeed(Item seed)
+	public ModBlockCrop setSeed(ModItemSeed seed)
 	{
 		this.seed = seed;
 		return this;
@@ -77,9 +74,7 @@ public class ModBlockCrop extends BlockCrops
 	}
 	
 	public static class Belladonna extends ModBlockCrop
-	{
-		private final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
-		
+	{		
 		public Belladonna(String name, int maxAge)
 		{
 			super(name, maxAge);
@@ -88,36 +83,20 @@ public class ModBlockCrop extends BlockCrops
 		@Override
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
-			this.checkAndDropBlock(world, pos, state);
-			if (world.getLightFromNeighbors(pos.up()) >= 9)
+			super.updateTick(world, pos, state, rand);
+			if (isMaxAge(state) && rand.nextInt(10) <= 3)
 			{
-				int i = this.getAge(state);
-				if (i < this.getMaxAge())
-				{
-					if (ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt((int)((25f / (world.getBiome(pos).isHighHumidity() ? 25 : getGrowthChance(this, world, pos))) + 1)) == 0))
-					{
-						world.setBlockState(pos, withAge(i + 1));
-						ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-					}
-				}
+				int i = rand.nextInt(4);
+				BlockPos pos0 = i == 0 ? pos.north() : i == 1 ? pos.south() : i == 2 ? pos.east() : pos.west();
+				if (world.getBlockState(pos0.down()).getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && getSeed().soil.contains(world.getBlockState(pos0.down()).getBlock()) && world.isAirBlock(pos0)) world.setBlockState(pos0, getDefaultState());
 			}
-		}
-		
-		@Override
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-		{
-			return CROPS_AABB[getAge(state)];
-		}
-		
-		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
-		{
-			return true;
 		}
 	}
 	
 	public static class Kelp extends ModBlockCrop
 	{
+		private static final AxisAlignedBB[] KELP_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.25D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.95D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		
 		public Kelp(String name, int maxAge)
 		{
 			super(name, maxAge);
@@ -127,20 +106,13 @@ public class ModBlockCrop extends BlockCrops
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
 			super.updateTick(world, pos, state, rand);
-			if (rand.nextInt(2) == 0 && isMaxAge(state) && canBlockStay(world, pos, state) && canPlaceBlockAt(world, pos) && canPlaceBlockAt(world, pos.up()))
-			{
-				if (ForgeHooks.onCropsGrowPre(world, pos, state, true))
-				{
-					world.setBlockState(pos.up(), getDefaultState());
-					ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-				}
-			}
+			if (rand.nextInt(2) == 0) grow(world, pos, state);
 		}
 		
 		@Override
-		protected BlockStateContainer createBlockState()
+		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 		{
-			return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE);
+			return KELP_AABB[state.getValue(AGE)];
 		}
 		
 		@Override
@@ -152,14 +124,21 @@ public class ModBlockCrop extends BlockCrops
 		@Override
 		public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 		{
-			return world.getBlockState(pos.down()).getMaterial().isSolid() || world.getBlockState(pos.down()).getBlock() == this;
+			Block block = world.getBlockState(pos.down()).getBlock();
+			return block == this || getSeed().soil.contains(block) ? true : canPlaceBlockAt(world, pos);
 		}
 		
 		@Override
 		public boolean canPlaceBlockAt(World world, BlockPos pos)
 		{
-			return world.getBlockState(pos.up()).getMaterial() == Material.WATER;
+			return world.getBlockState(pos.up()).getMaterial() == Material.WATER && world.getBlockState(pos.up(2)).getMaterial() == Material.WATER;
 		}
+		
+		@Override
+		public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
+	    {
+	        return world.getBlockState(pos.up()).getBlock() != this && (isMaxAge(state) ? world.getBlockState(pos.up(2)).getMaterial() == Material.WATER : true);
+	    }
 		
 		@Override
 		public boolean isReplaceable(IBlockAccess world, BlockPos pos)
@@ -168,16 +147,11 @@ public class ModBlockCrop extends BlockCrops
 		}
 		
 		@Override
-		protected boolean canSustainBush(IBlockState state)
-		{
-			return false;
-		}
-		
-		@Override
-		public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from)
-		{
-			if (!canBlockStay(world, pos, state)) checkAndDropBlock(world, pos, state);
-		}
+		public void grow(World world, BlockPos pos, IBlockState state)
+	    {
+			if (isMaxAge(state) && world.getBlockState(pos.up()).getBlock() == Blocks.WATER && world.getBlockState(pos.up(2)).getBlock() == Blocks.WATER) world.setBlockState(pos.up(), getDefaultState());
+			else super.grow(world, pos, state);
+	    }
 		
 		@Override
 		public void onPlayerDestroy(World world, BlockPos pos, IBlockState state)
@@ -194,69 +168,80 @@ public class ModBlockCrop extends BlockCrops
 				world.setBlockState(pos, Blocks.WATER.getDefaultState());
 			}
 		}
+		
+		@Override
+		protected BlockStateContainer createBlockState()
+		{
+			return new BlockStateContainer(this, AGE, BlockLiquid.LEVEL);
+		}
 	}
 	
 	public static class Kenaf extends ModBlockCrop
 	{
-		private static final AxisAlignedBB[] KENAF_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1), null, null, new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		private static final AxisAlignedBB[] KENAF_AABB = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
 		
 		public Kenaf(String name, int maxAge)
 		{
 			super(name, maxAge);
+			this.setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(TOP, false));
 		}
 		
 		@Override
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
 			super.updateTick(world, pos, state, rand);
-			if (isMaxAge(state) && getAge(state) != getMaxAge() && canSustainBush(world.getBlockState(pos.down())) && world.isAirBlock(pos.up()))
-			{
-				int i = 1;
-				while (world.getBlockState(pos.down(i)).getBlock() == this) i++;
-				if (i >= 5 || (i >= 3 && rand.nextInt(5) == 0)) world.setBlockState(pos, withAge(getMaxAge()));
-				else if (rand.nextInt(5) == 0)
-				{
-					if (ForgeHooks.onCropsGrowPre(world, pos, state, true))
-					{
-						world.setBlockState(pos.up(), getDefaultState());
-						ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-					}
-				}
-			}
+			if (rand.nextInt(5) == 0) grow(world, pos, state);
 		}
 		
 		@Override
 		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 		{
-			return KENAF_AABB[getAge(state)];
+			return KENAF_AABB[state.getValue(AGE)];
 		}
 		
 		@Override
 		public boolean canPlaceBlockAt(World world, BlockPos pos)
 		{
-			return canSustainBush(world.getBlockState(pos.down()));
+			IBlockState state = world.getBlockState(pos.down());
+			return state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) || state.getBlock() == this;
 		}
 		
 		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
+		public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 		{
-			return true;
+			Block block = world.getBlockState(pos.down()).getBlock();
+			return block == this || getSeed().soil.contains(block) ? true : canPlaceBlockAt(world, pos);
 		}
 		
 		@Override
-		protected boolean canSustainBush(IBlockState state)
+		public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
+	    {
+	        return state.getValue(TOP) ? super.canGrow(world, pos, state, isClient) : !state.getValue(TOP) && world.getBlockState(pos.up()).getBlock() != this;
+	    }
+		
+		@Override
+		public void grow(World world, BlockPos pos, IBlockState state)
+	    {
+			if (isMaxAge(state) && world.isAirBlock(pos.up()) && !state.getValue(TOP)) world.setBlockState(pos.up(), (world.getBlockState(pos.down()).getBlock() == this ? getDefaultState().withProperty(TOP, true) : getDefaultState()));
+			else world.setBlockState(pos, getDefaultState().withProperty(AGE, Math.min(state.getValue(AGE) + getBonemealAgeIncrease(world), getMaxAge())).withProperty(TOP, state.getValue(TOP)));
+	    }
+		
+		@Override
+		public IBlockState getStateFromMeta(int meta)
 		{
-			return state.getBlock() == Blocks.FARMLAND || (state.getBlock() == this && isMaxAge(state));
+			return getDefaultState().withProperty(AGE, meta & 7).withProperty(TOP, (meta & 8) > 0);
 		}
 		
 		@Override
-		public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from)
+		public int getMetaFromState(IBlockState state)
 		{
-			if (!canSustainBush(world.getBlockState(pos.down())))
-			{
-				dropBlockAsItem(world, pos, state, 0);
-				world.setBlockToAir(pos);
-			}
+			return state.getValue(AGE) | ((state.getValue(TOP) ? 1 : 0) << 3);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState()
+		{
+			return new BlockStateContainer(this, AGE, TOP);
 		}
 	}
 	
@@ -271,111 +256,95 @@ public class ModBlockCrop extends BlockCrops
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
 			super.updateTick(world, pos, state, rand);
-			if (isMaxAge(state) && getAge(state) != getMaxAge())
+			if (isMaxAge(state) && rand.nextInt(10) <= 3)
 			{
-				if (rand.nextBoolean()) world.setBlockState(pos, withAge(getMaxAge()));
-				else
-				{
-					BlockPos i = pos.add(-1, -1, -1), f = pos.add(1, 1, 1);
-					BlockPos.getAllInBox(i, f).forEach(pos0 -> {
-						if (rand.nextBoolean() && canSustainBush(world.getBlockState(pos0.down())) && world.isAirBlock(pos0) || world.getBlockState(pos0).getBlock().isReplaceable(world, pos0)) world.setBlockState(pos0, getDefaultState());
-					});
-				}
+				int i = rand.nextInt(4);
+				BlockPos pos0 = i == 0 ? pos.north() : i == 1 ? pos.south() : i == 2 ? pos.east() : pos.west();
+				if (world.getBlockState(pos0.down()).getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && getSeed().soil.contains(world.getBlockState(pos0.down()).getBlock()) && world.isAirBlock(pos0)) world.setBlockState(pos0, getDefaultState());
 			}
-		}
-		
-		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
-		{
-			return true;
-		}
-		
-		@Override
-		public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
-		{
-			world.spawnParticle(EnumParticleTypes.END_ROD, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0, 0.05, 0);
 		}
 	}
 	
 	public static class Silphium extends ModBlockCrop
 	{
+		private static final AxisAlignedBB[] SILPHIUM_AABB_BOTTOM = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.75D, 1), new AxisAlignedBB(0, 0, 0, 1, 1, 1)};
+		private static final AxisAlignedBB[] SILPHIUM_AABB_TOP = {new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.375D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.5D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.55D, 1), new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1)};
+		
 		public Silphium(String name, int maxAge)
 		{
 			super(name, maxAge);
+			this.setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(TOP, false));
 		}
-		
+				
 		@Override
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
 			checkAndDropBlock(world, pos, state);
-			if (world.getLightFromNeighbors(pos.up()) >= 9)
-			{
-				int age = getAge(state);
-				if (age < getMaxAge())
-				{
-					if (ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt((int)(25f / getGrowthChance(this, world, pos)) + 1) == 0))
-					{
-						world.setBlockState(pos, withAge(age + 1));
-						ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-					}
-				}
-			}
-			if (getAge(state) == getMaxAge() || rand.nextBoolean() || !world.getBiome(pos).canRain()) return;
-			if (ForgeHooks.onCropsGrowPre(world, pos, state, true) && canSustainBush(world.getBlockState(pos.down())) && world.isAirBlock(pos.up()))
-			{
-				IBlockState down = world.getBlockState(pos.down());
-				if (down.getBlock() == this && getAge(down) >= 3)
-				{
-					world.setBlockState(pos, withAge(getMaxAge()));
-					ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-				}
-				else if (getAge(state) == getMaxAge()-1)
-				{
-					world.setBlockState(pos, getDefaultState());
-					ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-				}
-			}
+			if (rand.nextBoolean() && world.getBiome(pos).canRain()) grow(world, pos, state);
+		}
+		
+		@Override
+		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+		{
+			return state.getValue(TOP) ? SILPHIUM_AABB_TOP[state.getValue(AGE)] : SILPHIUM_AABB_BOTTOM[state.getValue(AGE)];
 		}
 		
 		@Override
 		public Item getItemDropped(IBlockState state, Random rand, int fortune)
 		{
-			return getAge(state) == getMaxAge() ? getCrop() : getSeed();
+			return state.getValue(TOP) && isMaxAge(state) ? getCrop() : getSeed();
 		}
 		
 		@Override
 		public boolean canPlaceBlockAt(World world, BlockPos pos)
 		{
-			return canSustainBush(world.getBlockState(pos.down()));
+			IBlockState state = world.getBlockState(pos.down());
+			return state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) || state.getBlock() == this;
 		}
 		
 		@Override
-		protected boolean canSustainBush(IBlockState state)
+		public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
 		{
-			return state.getBlock() == Blocks.FARMLAND || (state.getBlock() == this && isMaxAge(state));
+			Block block = world.getBlockState(pos.down()).getBlock();
+			return block == this || getSeed().soil.contains(block) ? true : canPlaceBlockAt(world, pos);
 		}
 		
 		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
-		{
-			return true;
-		}
+		public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient)
+	    {
+	        return state.getValue(TOP) ? super.canGrow(world, pos, state, isClient) : world.getBlockState(pos.up()).getBlock() != this;
+	    }
 		
 		@Override
 		public void grow(World world, BlockPos pos, IBlockState state)
+	    {
+			if (isMaxAge(state) && world.isAirBlock(pos.up()) && !state.getValue(TOP)) world.setBlockState(pos.up(), getDefaultState().withProperty(TOP, true));
+			else world.setBlockState(pos, getDefaultState().withProperty(AGE, Math.min(state.getValue(AGE) + getBonemealAgeIncrease(world), getMaxAge())).withProperty(TOP, state.getValue(TOP)));
+	    }
+		
+		@Override
+		public void breakBlock(World world, BlockPos pos, IBlockState state)
 		{
-			if (getAge(state) == 6) return;
-			world.setBlockState(pos, withAge(Math.min(getAge(state) + getBonemealAgeIncrease(world), getMaxAge())));
+			super.breakBlock(world, pos, state);
+			if (state.getValue(TOP)) world.setBlockToAir(pos.down());
 		}
 		
 		@Override
-		public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from)
+		public IBlockState getStateFromMeta(int meta)
 		{
-			if (!canSustainBush(world.getBlockState(pos.down())))
-			{
-				dropBlockAsItem(world, pos, state, 0);
-				world.setBlockToAir(pos);
-			}
+			return getDefaultState().withProperty(AGE, meta & 7).withProperty(TOP, (meta & 8) > 0);
+		}
+		
+		@Override
+		public int getMetaFromState(IBlockState state)
+		{
+			return state.getValue(AGE) | ((state.getValue(TOP) ? 1 : 0) << 3);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState()
+		{
+			return new BlockStateContainer(this, AGE, TOP);
 		}
 	}
 	
@@ -390,83 +359,18 @@ public class ModBlockCrop extends BlockCrops
 		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
 		{
 			super.updateTick(world, pos, state, rand);
-			if (isMaxAge(state) && getAge(state) != getMaxAge())
+			if (isMaxAge(state) && rand.nextInt(10) <= 3)
 			{
-				if (rand.nextBoolean()) world.setBlockState(pos, withAge(getMaxAge()));
-				else
-				{
-					BlockPos i = pos.add(-1, -1, -1), f = pos.add(1, 1, 1);
-					BlockPos.getAllInBox(i, f).forEach(pos0 -> {
-						if (rand.nextBoolean() && canSustainBush(world.getBlockState(pos0.down())) && world.isAirBlock(pos0) || world.getBlockState(pos0).getBlock().isReplaceable(world, pos0)) world.setBlockState(pos0, getDefaultState());
-					});
-				}
+				int i = rand.nextInt(4);
+				BlockPos pos0 = i == 0 ? pos.north() : i == 1 ? pos.south() : i == 2 ? pos.east() : pos.west();
+				if (world.getBlockState(pos0.down()).getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && getSeed().soil.contains(world.getBlockState(pos0.down()).getBlock()) && world.isAirBlock(pos0)) world.setBlockState(pos0, getDefaultState());
 			}
-		}
-		
-		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
-		{
-			return true;
 		}
 		
 		@Override
 		public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity)
 		{
-			entity.attackEntityFrom(DamageSource.CACTUS, 0.5f);
-		}
-	}
-	
-	public static class Wormwood extends ModBlockCrop
-	{
-		public Wormwood(String name, int maxAge)
-		{
-			super(name, maxAge);
-		}
-		
-		@Override
-		public void updateTick(World world, BlockPos pos, IBlockState state, Random rand)
-		{
-			if (rand.nextBoolean() || !world.getBiome(pos).canRain()) return;
-			if (isMaxAge(state) && getAge(state) != getMaxAge() && canSustainBush(world.getBlockState(pos.down())) && world.isAirBlock(pos.up()))
-			{
-				if (world.getBlockState(pos.down()).getBlock() == this) world.setBlockState(pos, withAge(getMaxAge()));
-				else if (rand.nextInt(20) == 0)
-				{
-					if (ForgeHooks.onCropsGrowPre(world, pos, state, true))
-					{
-						world.setBlockState(pos.up(), getDefaultState());
-						ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos));
-					}
-				}
-			}
-		}
-		
-		@Override
-		public boolean canPlaceBlockAt(World world, BlockPos pos)
-		{
-			return canSustainBush(world.getBlockState(pos.down()));
-		}
-		
-		@Override
-		public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
-		{
-			return true;
-		}
-		
-		@Override
-		protected boolean canSustainBush(IBlockState state)
-		{
-			return state.getBlock() == Blocks.FARMLAND || state.getBlock() == this;
-		}
-		
-		@Override
-		public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from)
-		{
-			if (!canSustainBush(world.getBlockState(pos.down())))
-			{
-				this.dropBlockAsItem(world, pos, state, 0);
-				world.setBlockToAir(pos);
-			}
+			if (entity instanceof EntityLivingBase) entity.attackEntityFrom(DamageSource.CACTUS, 0.5f);
 		}
 	}
 }

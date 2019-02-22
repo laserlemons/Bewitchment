@@ -53,6 +53,10 @@ public class CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		this.config = new ModConfig(event.getSuggestedConfigurationFile());
+	}
+	
+	public void init(FMLInitializationEvent event)
+	{
 		for (Block block : ModBlocks.REGISTRY) if (block instanceof IOreName) for (String ore : ((IOreName) block).getOreNames()) OreDictionary.registerOre(ore, block);
 		for (Item item : ModItems.REGISTRY) if (item instanceof IOreName) for (String ore : ((IOreName) item).getOreNames()) OreDictionary.registerOre(ore, item);
 		ModBlocks.crop_aconitum.setSeed(ModItems.seed_aconitum).setCrop(ModItems.aconitum);
@@ -73,16 +77,12 @@ public class CommonProxy
 		ModBlocks.crop_tulsi.setSeed(ModItems.seed_tulsi).setCrop(ModItems.tulsi);
 		ModBlocks.crop_white_sage.setSeed(ModItems.seed_white_sage).setCrop(ModItems.white_sage);
 		ModBlocks.crop_wormwood.setSeed(ModItems.seed_wormwood).setCrop(ModItems.wormwood);
-	}
-	
-	public void init(FMLInitializationEvent event)
-	{
 		this.registerEventHandlers();
+		this.registerWorldGenerators();
 	}
 	
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		this.registerWorldGenerators();
 	}
 	
 	private void registerEventHandlers()
