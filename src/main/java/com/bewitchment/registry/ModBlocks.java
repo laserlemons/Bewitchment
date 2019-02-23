@@ -13,6 +13,7 @@ import com.bewitchment.registry.block.ModBlockPillar;
 import com.bewitchment.registry.block.ModBlockSapling;
 import com.bewitchment.registry.block.ModBlockSlab;
 import com.bewitchment.registry.block.ModBlockStairs;
+import com.bewitchment.registry.block.util.BlockSaltBarrier;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -26,7 +27,8 @@ public class ModBlocks
 {
 	public static final List<Block> REGISTRY = new ArrayList<Block>();
 	
-	//Crop
+	//No Item
+	public static final Block salt_barrier = new BlockSaltBarrier("salt_barrier");
 	public static final ModBlockCrop crop_aconitum = new ModBlockCrop("crop_aconitum", 3);
 	public static final ModBlockCrop crop_asphodel = new ModBlockCrop("crop_asphodel", 4);
 	public static final ModBlockCrop crop_belladonna = new ModBlockCrop.Belladonna("crop_belladonna", 4);

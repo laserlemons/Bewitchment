@@ -15,6 +15,7 @@ public class BlockDropHandler
 	@SubscribeEvent
 	public void harvestDrops(HarvestDropsEvent event)
 	{
+		replaceDrop(event, ModBlocks.ore_salt, new ItemStack(ModItems.salt, fortuneDrop(event.getFortuneLevel(), event.getWorld().rand)), 100, false);
 		replaceDrop(event, ModBlocks.ore_alexandrite, new ItemStack(ModItems.gem_alexandrite, fortuneDrop(event.getFortuneLevel(), event.getWorld().rand)), 100, false);
 		replaceDrop(event, ModBlocks.ore_amethyst, new ItemStack(ModItems.gem_amethyst, fortuneDrop(event.getFortuneLevel(), event.getWorld().rand)), 100, false);
 		replaceDrop(event, ModBlocks.ore_bloodstone, new ItemStack(ModItems.gem_bloodstone, fortuneDrop(event.getFortuneLevel(), event.getWorld().rand)), 100, false);

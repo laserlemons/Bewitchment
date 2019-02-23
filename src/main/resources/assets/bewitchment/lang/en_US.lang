@@ -70,6 +70,18 @@ item.bewitchment:chestplate_silver.name=Silver Chestplate
 item.bewitchment:leggings_silver.name=Silver Leggings
 item.bewitchment:boots_silver.name=Silver Boots
 
+item.bewitchment:sword_cold_iron.name=Cold Iron Sword
+item.bewitchment:pickaxe_cold_iron.name=Cold Iron Pickaxe
+item.bewitchment:axe_cold_iron.name=Cold Iron Axe
+item.bewitchment:shovel_cold_iron.name=Cold Iron Shovel
+item.bewitchment:hoe_cold_iron.name=Cold Iron Hoe
+
+item.bewitchment:sword_silver.name=Silver Sword
+item.bewitchment:pickaxe_silver.name=Silver Pickaxe
+item.bewitchment:axe_silver.name=Silver Axe
+item.bewitchment:shovel_silver.name=Silver Shovel
+item.bewitchment:hoe_silver.name=Silver Hoe
+
 item.bewitchment:ingot_cold_iron.name=Cold Iron Ingot
 item.bewitchment:ingot_silver.name=Silver Ingot
 item.bewitchment:nugget_cold_iron.name=Cold Iron Nugget
@@ -83,6 +95,8 @@ item.bewitchment:gem_malachite.name=Malachite
 item.bewitchment:gem_nuummite.name=Nuummite
 item.bewitchment:gem_tigers_eye.name=Tiger's Eye
 item.bewitchment:gem_tourmaline.name=Tourmaline
+
+item.bewitchment:salt.name=Salt
 
 item.bewitchment:aconitum.name=Aconitum
 item.bewitchment:asphodel.name=Asphodel

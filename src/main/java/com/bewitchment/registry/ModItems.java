@@ -8,6 +8,12 @@ import com.bewitchment.registry.block.ModBlockSlab;
 import com.bewitchment.registry.item.ModItem;
 import com.bewitchment.registry.item.ModItemSeed;
 import com.bewitchment.registry.item.tool.ModItemArmor;
+import com.bewitchment.registry.item.tool.ModItemAxe;
+import com.bewitchment.registry.item.tool.ModItemHoe;
+import com.bewitchment.registry.item.tool.ModItemPickaxe;
+import com.bewitchment.registry.item.tool.ModItemSpade;
+import com.bewitchment.registry.item.tool.ModItemSword;
+import com.bewitchment.registry.item.util.ItemSalt;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -30,25 +36,41 @@ public class ModItems
 {
 	public static final List<Item> REGISTRY = new ArrayList<Item>();
 	
-	public static final ToolMaterial TOOL_SILVER = EnumHelper.addToolMaterial("silver", 1, 215, 10.0F, 2.5F, 24);
+	public static final ArmorMaterial ARMOR_COLD_IRON = EnumHelper.addArmorMaterial("cold_iron", Main.MOD_ID + ":" + "cold_iron", 18, new int[]{2, 6, 7, 2}, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.45F);
+	public static final ArmorMaterial ARMOR_SILVER = EnumHelper.addArmorMaterial("silver", Main.MOD_ID + ":" + "silver", 12, new int[]{1, 4, 5, 2}, 22, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F);
+	
+	public static final ToolMaterial TOOL_COLD_IRON = EnumHelper.addToolMaterial("cold_iron", 2, 850, 7, 3, 8);
+	public static final ToolMaterial TOOL_SILVER = EnumHelper.addToolMaterial("silver", 1, 215, 10, 2.5f, 24);
 
 	public static final ArmorMaterial ARMOR_BEWITCHED_LEATHER = EnumHelper.addArmorMaterial("bewitched_leather", Main.MOD_ID + ":" + "bewitched_leather", 24, new int[]{1, 4, 5, 1}, 22, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.5F);
 	public static final ArmorMaterial ARMOR_VAMPIRE = EnumHelper.addArmorMaterial("vampire", Main.MOD_ID + ":" + "vampire", 9, new int[]{2, 6, 7, 1}, 22, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.25F);
 
-	public static final ToolMaterial TOOL_COLD_IRON = EnumHelper.addToolMaterial("cold_iron", 2, 850, 7.0F, 3.0F, 8);
 
 	public static final ToolMaterial TOOL_CHALK = EnumHelper.addToolMaterial("chalk", 2, 300, 2F, 1.5F, 30);
 	
 	//Armor
-	public static final Item helmet_cold_iron = new ModItemArmor.ColdIron("helmet_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.HEAD);
-	public static final Item chestplate_cold_iron = new ModItemArmor.ColdIron("chestplate_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.CHEST);
-	public static final Item leggings_cold_iron = new ModItemArmor.ColdIron("leggings_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.LEGS);
-	public static final Item boots_cold_iron = new ModItemArmor.ColdIron("boots_cold_iron", Main.proxy.tab_items, EntityEquipmentSlot.FEET);
+	public static final Item helmet_cold_iron = new ModItemArmor.ColdIron("helmet_cold_iron", Main.proxy.tab_items, ARMOR_COLD_IRON, EntityEquipmentSlot.HEAD);
+	public static final Item chestplate_cold_iron = new ModItemArmor.ColdIron("chestplate_cold_iron", Main.proxy.tab_items, ARMOR_COLD_IRON, EntityEquipmentSlot.CHEST);
+	public static final Item leggings_cold_iron = new ModItemArmor.ColdIron("leggings_cold_iron", Main.proxy.tab_items, ARMOR_COLD_IRON, EntityEquipmentSlot.LEGS);
+	public static final Item boots_cold_iron = new ModItemArmor.ColdIron("boots_cold_iron", Main.proxy.tab_items, ARMOR_COLD_IRON, EntityEquipmentSlot.FEET);
 	
-	public static final Item helmet_silver = new ModItemArmor.Silver("helmet_silver", Main.proxy.tab_items, EntityEquipmentSlot.HEAD);
-	public static final Item chestplate_silver = new ModItemArmor.Silver("chestplate_silver", Main.proxy.tab_items, EntityEquipmentSlot.CHEST);
-	public static final Item leggings_silver = new ModItemArmor.Silver("leggings_silver", Main.proxy.tab_items, EntityEquipmentSlot.LEGS);
-	public static final Item boots_silver = new ModItemArmor.Silver("boots_silver", Main.proxy.tab_items, EntityEquipmentSlot.FEET);
+	public static final Item helmet_silver = new ModItemArmor.Silver("helmet_silver", Main.proxy.tab_items, ARMOR_SILVER, EntityEquipmentSlot.HEAD);
+	public static final Item chestplate_silver = new ModItemArmor.Silver("chestplate_silver", Main.proxy.tab_items, ARMOR_SILVER, EntityEquipmentSlot.CHEST);
+	public static final Item leggings_silver = new ModItemArmor.Silver("leggings_silver", Main.proxy.tab_items, ARMOR_SILVER, EntityEquipmentSlot.LEGS);
+	public static final Item boots_silver = new ModItemArmor.Silver("boots_silver", Main.proxy.tab_items, ARMOR_SILVER, EntityEquipmentSlot.FEET);
+	
+	//Tools
+	public static final Item sword_cold_iron = new ModItemSword.ColdIron("sword_cold_iron", Main.proxy.tab_items, TOOL_COLD_IRON);
+	public static final Item pickaxe_cold_iron = new ModItemPickaxe.ColdIron("pickaxe_cold_iron", Main.proxy.tab_items, TOOL_COLD_IRON);
+	public static final Item axe_cold_iron = new ModItemAxe.ColdIron("axe_cold_iron", Main.proxy.tab_items, TOOL_COLD_IRON);
+	public static final Item shovel_cold_iron = new ModItemSpade.ColdIron("shovel_cold_iron", Main.proxy.tab_items, TOOL_COLD_IRON);
+	public static final Item hoe_cold_iron = new ModItemHoe.ColdIron("hoe_cold_iron", Main.proxy.tab_items, TOOL_COLD_IRON);
+	
+	public static final Item sword_silver = new ModItemSword.Silver("sword_silver", Main.proxy.tab_items, TOOL_SILVER);
+	public static final Item pickaxe_silver = new ModItemPickaxe.Silver("pickaxe_silver", Main.proxy.tab_items, TOOL_SILVER);
+	public static final Item axe_silver = new ModItemAxe.Silver("axe_silver", Main.proxy.tab_items, TOOL_SILVER);
+	public static final Item shovel_silver = new ModItemSpade.Silver("shovel_silver", Main.proxy.tab_items, TOOL_SILVER);
+	public static final Item hoe_silver = new ModItemHoe.Silver("hoe_silver", Main.proxy.tab_items, TOOL_SILVER);
 	
 	//Material Items
 	public static final Item ingot_cold_iron = new ModItem("ingot_cold_iron", Main.proxy.tab_items, "ingotColdIron");
@@ -64,6 +86,8 @@ public class ModItems
 	public static final Item gem_nuummite = new ModItem("gem_nuummite", Main.proxy.tab_items, "gemNuummite");
 	public static final Item gem_tigers_eye = new ModItem("gem_tigers_eye", Main.proxy.tab_items, "gemTigersEye");
 	public static final Item gem_tourmaline = new ModItem("gem_tourmaline", Main.proxy.tab_items, "gemTourmaline");
+	
+	public static final Item salt = new ItemSalt("salt", Main.proxy.tab_items,"salt", "dustSalt", "materialSalt", "ingredientSalt", "listAllsalt", "foodSalt", "lumpSalt", "pinchSalt", "portionSalt");
 	
 	//Ingredients
 	public static final Item aconitum = new ModItem("aconitum", Main.proxy.tab_items, "cropAconitum");

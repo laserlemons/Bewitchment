@@ -1,6 +1,7 @@
 package com.bewitchment.core.api.transformation;
 
 import com.bewitchment.core.Main;
+import com.bewitchment.registry.ModBlocks;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +14,10 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public interface ITransformation
@@ -41,7 +45,7 @@ public interface ITransformation
 		@Override
 		public Transformations getTransformation()
 		{
-			return transformation;
+			return transformation == null ? Transformations.NONE : transformation;
 		}
 		
 		@Override
@@ -110,11 +114,21 @@ public interface ITransformation
 			}
 			
 			@SubscribeEvent
+			public void livingTick(LivingEvent.LivingUpdateEvent event)
+			{
+				if (event.getEntityLiving() instanceof EntityPlayer && ((EntityPlayer)event.getEntityLiving()).getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation() == null) event.getEntityLiving().getCapability(TransformationProvider.TRANSFORMATION, null).setTransformation(Transformations.NONE);
+			}
+			
+			@SubscribeEvent
 			public void clonePlayer(PlayerEvent.Clone event)
 			{
-				EntityPlayer player = event.getEntityPlayer();
-				ITransformation newT = player.getCapability(TransformationProvider.TRANSFORMATION, null), oldT = event.getOriginal().getCapability(TransformationProvider.TRANSFORMATION, null);
-				newT.setTransformation(oldT.getTransformation());
+				event.getEntityPlayer().getCapability(TransformationProvider.TRANSFORMATION, null).setTransformation(event.getOriginal().getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation());
+			}
+			
+			@SubscribeEvent(priority = EventPriority.LOWEST)
+			public void breakBlock(BlockEvent.BreakEvent event)
+			{
+				if (!event.getPlayer().getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation().canCrossSalt && event.getState().getBlock() == ModBlocks.salt_barrier || event.getPlayer().world.getBlockState(event.getPos().up()).getBlock() == ModBlocks.salt_barrier) event.setCanceled(true);
 			}
 		}
 	}

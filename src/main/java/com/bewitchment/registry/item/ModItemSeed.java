@@ -3,12 +3,15 @@ package com.bewitchment.registry.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bewitchment.registry.ModItems;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -36,7 +39,7 @@ public class ModItemSeed extends ModItem implements IPlantable
     {
         ItemStack stack = player.getHeldItem(hand);
         IBlockState state = world.getBlockState(pos);
-        if (player.canPlayerEdit(pos.offset(face), face, stack) && soil.contains(state.getBlock()) && face == EnumFacing.UP)
+        if (player.canPlayerEdit(pos.offset(face), face, stack) && soil.contains(state.getBlock()) && face == EnumFacing.UP && (this == ModItems.seed_kelp ? world.getBlockState(pos.up(2)).getBlock() == Blocks.WATER : true))
         {
             world.setBlockState(pos.up(), this.crop.getDefaultState());
             if (player instanceof EntityPlayerMP) CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos.up(), stack);

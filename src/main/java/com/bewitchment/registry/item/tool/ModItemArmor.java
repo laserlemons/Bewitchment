@@ -3,20 +3,21 @@ package com.bewitchment.registry.item.tool;
 import java.util.List;
 
 import com.bewitchment.core.Main;
+import com.bewitchment.core.api.transformation.ITransformation.Transformation.TransformationProvider;
+import com.bewitchment.core.api.transformation.ITransformation.Transformations;
 import com.bewitchment.registry.ModItems;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,33 +41,23 @@ public class ModItemArmor extends ItemArmor
 	
 	public static class Silver extends ModItemArmor
 	{
-		private static final ArmorMaterial MAT = EnumHelper.addArmorMaterial("silver", Main.MOD_ID + ":" + "silver", 12, new int[]{1, 4, 5, 2}, 22, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F);
-		
-		public Silver(String name, CreativeTabs tab, EntityEquipmentSlot slot)
+		public Silver(String name, CreativeTabs tab, ArmorMaterial mat, EntityEquipmentSlot slot)
 		{
-			super(name, tab, MAT, slot);
+			super(name, tab, mat, slot);
 		}
 		
 		@Override
 		public void onArmorTick(World world, EntityPlayer player, ItemStack stack)
 		{
-			//werewolf
+			if (player.getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation() == Transformations.WEREWOLF) player.attackEntityFrom(DamageSource.MAGIC, 1);
 		}
 	}
 	
 	public static class ColdIron extends ModItemArmor
 	{
-		public static final ArmorMaterial MAT = EnumHelper.addArmorMaterial("cold_iron", Main.MOD_ID + ":" + "cold_iron", 18, new int[]{2, 6, 7, 2}, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.45F);
-		
-		public ColdIron(String name, CreativeTabs tab, EntityEquipmentSlot slot)
+		public ColdIron(String name, CreativeTabs tab, ArmorMaterial mat, EntityEquipmentSlot slot)
 		{
-			super(name, tab, MAT, slot);
-		}
-		
-		@Override
-		public void onArmorTick(World world, EntityPlayer player, ItemStack stack)
-		{
-			//spirit
+			super(name, tab, mat, slot);
 		}
 	}
 }

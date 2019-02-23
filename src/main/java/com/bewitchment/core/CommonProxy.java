@@ -13,6 +13,7 @@ import com.bewitchment.registry.gen.WorldGenOres;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,12 +28,14 @@ public class CommonProxy
 {
 	public ModConfig config;
 	
+	public EnumCreatureAttribute DEMON, SPIRIT;
+	
 	public final CreativeTabs tab_blocks = new CreativeTabs(Main.MOD_ID + "_blocks")
 	{
 		@Override
 		public ItemStack createIcon()
 		{
-			return new ItemStack(ModBlocks.block_alexandrite);
+			return new ItemStack(ModBlocks.log_elder);
 		}
 	};
 	
@@ -41,7 +44,7 @@ public class CommonProxy
 		@Override
 		public ItemStack createIcon()
 		{
-			return new ItemStack(ModItems.aconitum);
+			return new ItemStack(ModItems.belladonna);
 		}
 	};
 	
