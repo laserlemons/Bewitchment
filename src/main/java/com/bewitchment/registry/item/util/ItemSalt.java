@@ -3,7 +3,6 @@ package com.bewitchment.registry.item.util;
 import com.bewitchment.registry.ModBlocks;
 import com.bewitchment.registry.item.ModItem;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -14,9 +13,9 @@ import net.minecraft.world.World;
 
 public class ItemSalt extends ModItem
 {
-	public ItemSalt(String name, CreativeTabs tab, String... oreNames)
+	public ItemSalt(String name, String... oreNames)
 	{
-		super(name, tab, oreNames);
+		super(name, oreNames);
 	}
 	
 	@Override

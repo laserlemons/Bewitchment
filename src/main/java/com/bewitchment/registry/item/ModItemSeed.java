@@ -8,7 +8,8 @@ import com.bewitchment.registry.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -17,19 +18,22 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItemSeed extends ModItem implements IPlantable
 {
 	public final Block crop;
 	public final List<Block> soil = new ArrayList<Block>();
 	
-	public ModItemSeed(String name, CreativeTabs tab, Block crop, Block... soil)
+	public ModItemSeed(String name, Block crop, Block... soil)
 	{
-		super(name, tab);
+		super(name);
 		this.crop = crop;
 		for (Block block : soil) this.soil.add(block);
 	}
@@ -59,5 +63,13 @@ public class ModItemSeed extends ModItem implements IPlantable
 	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
 	{
 		return crop.getDefaultState();
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag)
+	{
+		String tip = "tooltip." + getTranslationKey().substring(5);
+		if (!I18n.format(tip).equals(tip)) tooltip.add(TextFormatting.GRAY + I18n.format(tip));
 	}
 }

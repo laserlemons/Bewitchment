@@ -7,7 +7,6 @@ import com.bewitchment.registry.ModItems;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -25,12 +24,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItemAxe extends ItemAxe
 {
-	public ModItemAxe(String name, CreativeTabs tab, ToolMaterial mat)
+	public ModItemAxe(String name, ToolMaterial mat)
 	{
 		super(mat, mat.getAttackDamage(), -3.1f);
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		ModItems.REGISTRY.add(this);
 	}
 	
@@ -43,9 +42,9 @@ public class ModItemAxe extends ItemAxe
 	
 	public static class ColdIron extends ModItemAxe
 	{
-		public ColdIron(String name, CreativeTabs tab, ToolMaterial mat)
+		public ColdIron(String name, ToolMaterial mat)
 		{
-			super(name, tab, mat);
+			super(name, mat);
 		}
 		
 		@Override
@@ -66,9 +65,9 @@ public class ModItemAxe extends ItemAxe
 	
 	public static class Silver extends ModItemAxe
 	{
-		public Silver(String name, CreativeTabs tab, ToolMaterial mat)
+		public Silver(String name, ToolMaterial mat)
 		{
-			super(name, tab, mat);
+			super(name, mat);
 		}
 		
 		@Override

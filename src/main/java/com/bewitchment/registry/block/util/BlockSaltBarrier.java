@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import com.bewitchment.core.Main;
-import com.bewitchment.core.api.transformation.ITransformation.Transformation.TransformationProvider;
 import com.bewitchment.registry.ModItems;
 import com.bewitchment.registry.block.ModBlock;
+import com.bewitchment.registry.capability.ITransformation;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -46,7 +46,8 @@ public class BlockSaltBarrier extends ModBlock
 	
 	public BlockSaltBarrier(String name, String... oreNames)
 	{
-		super(name, null, Material.CIRCUITS, SoundType.CLOTH, 0, 0, "", 0, oreNames);
+		super(name, Material.CIRCUITS, SoundType.CLOTH, 0, 0, "", 0, oreNames);
+		this.setCreativeTab(null);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, EnumAttachPosition.NONE).withProperty(EAST, EnumAttachPosition.NONE).withProperty(SOUTH, EnumAttachPosition.NONE).withProperty(WEST, EnumAttachPosition.NONE));
 	}
 	
@@ -135,7 +136,7 @@ public class BlockSaltBarrier extends ModBlock
 			if (attribute == EnumCreatureAttribute.UNDEAD || attribute == Main.proxy.DEMON || attribute == Main.proxy.SPIRIT) addCollisionBoxToList(pos, box, boxes, WALL);
 		}
 		if (entity instanceof EntityBlaze || entity instanceof EntityGhast || entity instanceof EntityVex /*|| entity instanceof EntityBatSwarm*/) addCollisionBoxToList(pos, box, boxes, WALL);
-		if ((entity instanceof EntityPlayer) && !((EntityPlayer)entity).isCreative() && !entity.getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation().canCrossSalt) addCollisionBoxToList(pos, box, boxes, WALL);
+		if ((entity instanceof EntityPlayer) && !((EntityPlayer)entity).isCreative() && !entity.getCapability(ITransformation.Provider.TRANSFORMATION, null).getTransformation().canCrossSalt) addCollisionBoxToList(pos, box, boxes, WALL);
 	}
 	
 	@Override

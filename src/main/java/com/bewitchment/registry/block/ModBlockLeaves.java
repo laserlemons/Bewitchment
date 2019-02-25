@@ -14,7 +14,6 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -35,11 +34,11 @@ public class ModBlockLeaves extends BlockLeaves implements IOreName
 	
 	private final List<String> oreNames = new ArrayList<String>();
 	
-	public ModBlockLeaves(String name, CreativeTabs tab, String... oreNames)
+	public ModBlockLeaves(String name, String... oreNames)
 	{
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		this.setDefaultState(this.getBlockState().getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
 		for (String ore : oreNames) this.oreNames.add(ore);

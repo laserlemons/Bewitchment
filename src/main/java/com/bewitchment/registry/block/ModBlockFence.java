@@ -10,7 +10,6 @@ import com.bewitchment.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
@@ -22,12 +21,12 @@ public class ModBlockFence extends BlockFence implements IOreName
 	private final List<String> oreNames = new ArrayList<String>();
 	
 	@SuppressWarnings("deprecation")
-	public ModBlockFence(String name, CreativeTabs tab, Block base, String... oreNames)
+	public ModBlockFence(String name, Block base, String... oreNames)
 	{
 		super(base.getDefaultState().getMaterial(), base.getDefaultState().getMaterial().getMaterialMapColor());
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		this.setHardness(base.getBlockHardness(null, null, null));
 		this.setResistance(base.getExplosionResistance(null)*5);
 		this.setHarvestLevel(base.getHarvestTool(base.getDefaultState()), base.getHarvestLevel(base.getDefaultState()));

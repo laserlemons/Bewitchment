@@ -10,8 +10,6 @@
 	},
 	"variants":
 	{
-		"inventory": [{}],
-		"normal": [{}],
 		"age=0": [{"textures": {"crop": "bewitchment:blocks/crop/crop_lavender_0"}}],
 		"age=1": [{"textures": {"crop": "bewitchment:blocks/crop/crop_lavender_1"}}],
 		"age=2": [{"textures": {"crop": "bewitchment:blocks/crop/crop_lavender_2"}}],

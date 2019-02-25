@@ -11,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -25,12 +24,12 @@ public class ModBlock extends Block implements IOreName
 {
 	private final List<String> oreNames = new ArrayList<String>();
 	
-	public ModBlock(String name, CreativeTabs tab, Material mat, SoundType sound, float hardness, float resistance, String tool, int level, String... oreNames)
+	public ModBlock(String name, Material mat, SoundType sound, float hardness, float resistance, String tool, int level, String... oreNames)
 	{
 		super(mat);
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		this.setSoundType(sound);
 		this.setHardness(hardness);
 		this.setResistance(resistance);

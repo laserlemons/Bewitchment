@@ -15,7 +15,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,12 +36,12 @@ public class ModBlockSlab extends BlockSlab implements IOreName
 	private final boolean isDouble;
 	
 	@SuppressWarnings("deprecation")
-	public ModBlockSlab(String name, CreativeTabs tab, Block base, boolean isDouble, String... oreNames)
+	public ModBlockSlab(String name, Block base, boolean isDouble, String... oreNames)
 	{
 		super(base.getDefaultState().getMaterial());
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		if (!isDouble) this.setCreativeTab(tab);
+		if (!isDouble) this.setCreativeTab(Main.proxy.tab);
 		this.setHardness(base.getBlockHardness(null, null, null));
 		this.setResistance(base.getExplosionResistance(null)*5);
 		this.setHarvestLevel(base.getHarvestTool(base.getDefaultState()), base.getHarvestLevel(base.getDefaultState()));

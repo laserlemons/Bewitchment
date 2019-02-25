@@ -3,13 +3,12 @@ package com.bewitchment.registry.item.tool;
 import java.util.List;
 
 import com.bewitchment.core.Main;
-import com.bewitchment.core.api.transformation.ITransformation.Transformation.TransformationProvider;
-import com.bewitchment.core.api.transformation.ITransformation.Transformations;
 import com.bewitchment.registry.ModItems;
+import com.bewitchment.registry.capability.ITransformation;
+import com.bewitchment.registry.capability.ITransformation.Transformations;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -23,12 +22,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItemArmor extends ItemArmor
 {
-	public ModItemArmor(String name, CreativeTabs tab, ArmorMaterial mat, EntityEquipmentSlot slot)
+	public ModItemArmor(String name, ArmorMaterial mat, EntityEquipmentSlot slot)
 	{
 		super(mat, 0, slot);
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		ModItems.REGISTRY.add(this);
 	}
 	
@@ -41,23 +40,23 @@ public class ModItemArmor extends ItemArmor
 	
 	public static class Silver extends ModItemArmor
 	{
-		public Silver(String name, CreativeTabs tab, ArmorMaterial mat, EntityEquipmentSlot slot)
+		public Silver(String name, ArmorMaterial mat, EntityEquipmentSlot slot)
 		{
-			super(name, tab, mat, slot);
+			super(name, mat, slot);
 		}
 		
 		@Override
 		public void onArmorTick(World world, EntityPlayer player, ItemStack stack)
 		{
-			if (player.getCapability(TransformationProvider.TRANSFORMATION, null).getTransformation() == Transformations.WEREWOLF) player.attackEntityFrom(DamageSource.MAGIC, 1);
+			if (player.getCapability(ITransformation.Provider.TRANSFORMATION, null).getTransformation() == Transformations.WEREWOLF) player.attackEntityFrom(DamageSource.MAGIC, 1);
 		}
 	}
 	
 	public static class ColdIron extends ModItemArmor
 	{
-		public ColdIron(String name, CreativeTabs tab, ArmorMaterial mat, EntityEquipmentSlot slot)
+		public ColdIron(String name, ArmorMaterial mat, EntityEquipmentSlot slot)
 		{
-			super(name, tab, mat, slot);
+			super(name, mat, slot);
 		}
 	}
 }

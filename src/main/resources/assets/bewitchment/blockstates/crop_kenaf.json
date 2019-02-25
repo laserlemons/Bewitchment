@@ -10,8 +10,6 @@
 	},
 	"variants":
 	{
-		"inventory": [{}],
-		"normal": [{}],
 		"age=0,top=false": [{"textures": {"crop": "bewitchment:blocks/crop/crop_kenaf_0"}}],
 		"age=1,top=false": [{"textures": {"crop": "bewitchment:blocks/crop/crop_kenaf_1"}}],
 		"age=2,top=false": [{"textures": {"crop": "bewitchment:blocks/crop/crop_kenaf_2"}}],

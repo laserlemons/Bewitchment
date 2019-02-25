@@ -1,47 +1,25 @@
 package com.bewitchment.registry.block;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import com.bewitchment.core.Main;
-import com.bewitchment.registry.IOreName;
 import com.bewitchment.registry.ModBlocks;
 
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class ModBlockSapling extends BlockBush implements IOreName, IGrowable
+public class ModBlockSapling extends ModBlockBush implements IGrowable
 {
     protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.1, 0, 0.1, 0.9, 0.8, 0.9);
 	
-	private final List<String> oreNames = new ArrayList<String>();
-	
-	public ModBlockSapling(String name, CreativeTabs tab, String... oreNames)
+	public ModBlockSapling(String name, String... oreNames)
 	{
-		super();
-		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
-		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
-		this.setSoundType(SoundType.PLANT);
-		this.setHardness(0);
-		for (String ore : oreNames) this.oreNames.add(ore);
-		ModBlocks.REGISTRY.add(this);
-	}
-	
-	@Override
-	public List<String> getOreNames()
-	{
-		return oreNames;
+		super(name, oreNames);
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package com.bewitchment.core;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -11,6 +12,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class Main
 {
 	public static final String MOD_ID = "bewitchment", MOD_NAME = "Bewitchment", MOD_VERSION = "0.1";
+	
+	@Instance(Main.MOD_ID)
+	public static Main instance;
 	
 	@SidedProxy(serverSide = "com.bewitchment.core.CommonProxy", clientSide = "com.bewitchment.core.ClientProxy")
 	public static CommonProxy proxy;

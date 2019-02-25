@@ -11,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -22,12 +21,12 @@ public class ModBlockStairs extends BlockStairs implements IOreName
 {
 	private final List<String> oreNames = new ArrayList<String>();
 	
-	public ModBlockStairs(String name, CreativeTabs tab, Block original, String tool, int level, String... oreNames)
+	public ModBlockStairs(String name, Block original, String tool, int level, String... oreNames)
 	{
 		super(original.getDefaultState());
 		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 		this.setTranslationKey(this.getRegistryName().toString());
-		this.setCreativeTab(tab);
+		this.setCreativeTab(Main.proxy.tab);
 		this.setHarvestLevel(tool, level);
 		if (original.getDefaultState().getMaterial() == Material.CARPET) Blocks.FIRE.setFireInfo(this, 60, 20);
 		if (original.getDefaultState().getMaterial() == Material.CLOTH || original.getDefaultState().getMaterial() == Material.LEAVES) Blocks.FIRE.setFireInfo(this, 30, 60);

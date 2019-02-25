@@ -1,4 +1,9 @@
+#Fluids
+fluid.honey=Honey
+
 #Blocks
+tile.bewitchment:distillery.name=Distillery
+
 tile.bewitchment:block_cold_iron.name=Block of Cold Iron
 tile.bewitchment:block_silver.name=Block of Silver
 tile.bewitchment:block_alexandrite.name=Block of Alexandrite
@@ -11,7 +16,7 @@ tile.bewitchment:block_nuummite.name=Block of Nuummite
 tile.bewitchment:block_tigers_eye.name=Block of Tiger's Eye
 tile.bewitchment:block_tourmaline.name=Block of Tourmaline
 
-tile.bewitchment:fake_ice.name=Fake Ice
+tile.bewitchment:perpetual_ice.name=Perpetual Ice
 tile.bewitchment:nethersteel.name=Nethersteel
 
 tile.bewitchment:ore_silver.name=Silver Ore
@@ -45,19 +50,21 @@ tile.bewitchment:sapling_elder.name=Elder Sapling
 tile.bewitchment:sapling_juniper.name=Juniper Sapling
 tile.bewitchment:sapling_yew.name=Yew Sapling
 
+tile.bewitchment:moonbell.name=Moonbell
+
 tile.bewitchment:stairs_cypress.name=Cypress Wood Stairs
 tile.bewitchment:stairs_elder.name=Elder Wood Stairs
 tile.bewitchment:stairs_juniper.name=Juniper Wood Stairs
 tile.bewitchment:stairs_yew.name=Yew Wood Stairs
-tile.bewitchment:stairs_fake_ice.name=Fake Ice Stairs
+tile.bewitchment:stairs_perpetual_ice.name=Perpetual Ice Stairs
 
 tile.bewitchment:slab_cypress.name=Cypress Wood Slab
 tile.bewitchment:slab_elder.name=Elder Wood Slab
 tile.bewitchment:slab_juniper.name=Juniper Wood Slab
 tile.bewitchment:slab_yew.name=Yew Wood Slab
-tile.bewitchment:slab_fake_ice.name=Fake Ice Slab
+tile.bewitchment:slab_perpetual_ice.name=Perpetual Ice Slab
 
-tile.bewitchment:fence_fake_ice.name=Fake Ice Fence
+tile.bewitchment:fence_perpetual_ice.name=Perpetual Ice Fence
 
 #Items
 item.bewitchment:helmet_cold_iron.name=Cold Iron Helmet
@@ -82,6 +89,9 @@ item.bewitchment:axe_silver.name=Silver Axe
 item.bewitchment:shovel_silver.name=Silver Shovel
 item.bewitchment:hoe_silver.name=Silver Hoe
 
+item.bewitchment:athame.name=Athame
+item.bewitchment:boline.name=Boline
+
 item.bewitchment:ingot_cold_iron.name=Cold Iron Ingot
 item.bewitchment:ingot_silver.name=Silver Ingot
 item.bewitchment:nugget_cold_iron.name=Cold Iron Nugget
@@ -97,6 +107,28 @@ item.bewitchment:gem_tigers_eye.name=Tiger's Eye
 item.bewitchment:gem_tourmaline.name=Tourmaline
 
 item.bewitchment:salt.name=Salt
+
+item.bewitchment:unfired_jar.name=Unfired Jar
+item.bewitchment:empty_jar.name=Empty Jar
+item.bewitchment:acacia_resin.name=Acacia Resin
+item.bewitchment:birch_soul.name=Birch Soul
+item.bewitchment:cleansing_balm.name=Cleansing Balm
+item.bewitchment:cloudy_oil.name=Cloudy Oil
+item.bewitchment:demonic_elixir.name=Demonic Elixir
+item.bewitchment:droplet_of_wisdom.name=Droplet of Wisdom
+item.bewitchment:ebb_of_death.name=Ebb of Death
+item.bewitchment:everchanging_dew.name=Everchanging Dew
+item.bewitchment:essence_of_vitality.name=Essence of Vitality
+item.bewitchment:fiery_unguent.name=Fiery Unguent
+item.bewitchment:heaven_extract.name=Heaven Extract
+item.bewitchment:liquid_witchcraft.name=Liquid Witchcraft
+item.bewitchment:oak_spirit.name=Oak Spirit
+item.bewitchment:otherworldly_tears.name=Otherworldly Tears
+item.bewitchment:philter_of_dishonesty.name=Philter of Dishonesty
+item.bewitchment:spruce_heart.name=Spruce Heart
+item.bewitchment:stone_ichor.name=Stone Ichor
+item.bewitchment:swirl_of_the_depths.name=Swirl of the Depths
+item.bewitchment:undying_salve.name=Undying Salve
 
 item.bewitchment:aconitum.name=Aconitum
 item.bewitchment:asphodel.name=Asphodel
@@ -120,6 +152,14 @@ item.bewitchment:white_sage.name=White Sage
 item.bewitchment:witchweed.name=Witchweed
 item.bewitchment:wormwood.name=Wormwood
 
+item.bewitchment:glass_jar.name=Glass Jar
+item.bewitchment:grilled_watermelon.name=Grilled Watermelon
+item.bewitchment:golden_thread.name=Golden Thread
+item.bewitchment:juniper_berries.name=Juniper Berries
+item.bewitchment:silver_scales.name=Silver Scales
+item.bewitchment:wood_ash.name=Wood Ash
+item.bewitchment:yew_aril.name=Yew Aril
+
 item.bewitchment:seed_aconitum.name=Aconitum Seeds
 item.bewitchment:seed_asphodel.name=Asphodel Seeds
 item.bewitchment:seed_belladonna.name=Belladonna Seeds
@@ -127,7 +167,7 @@ item.bewitchment:seed_chrysanthemum.name=Chrysanthemum Seeds
 item.bewitchment:seed_garlic.name=Garlic Seeds
 item.bewitchment:seed_ginger.name=Ginger Seeds
 item.bewitchment:seed_hellebore.name=Hellebore Seeds
-item.bewitchment:seed_kelp.name=Kelp Seeds
+item.bewitchment:seed_kelp.name=Kelp Spores
 item.bewitchment:seed_kenaf.name=Kenaf Seeds
 item.bewitchment:seed_lavender.name=Lavender Seeds
 item.bewitchment:seed_mandrake.name=Mandrake Seeds
@@ -139,12 +179,56 @@ item.bewitchment:seed_tulsi.name=Tulsi Seeds
 item.bewitchment:seed_white_sage.name=White Sage Seeds
 item.bewitchment:seed_wormwood.name=Wormwood Seeds
 
+bewitchment.book.rites.name=Book of Shadows
+bewitchment.book.codex_infernalis.name=Codex Infernalis
+
 #Info
-itemGroup.bewitchment_blocks=Blocks (Bewitchment)
-itemGroup.bewitchment_items=Items (Bewitchment)
+itemGroup.bewitchment=Bewitchment
 
 tooltip.armor_description_cold_iron=Protects against demons and spirits
 tooltip.tool_description_cold_iron=Deals extra damage to spirits
 
 tooltip.armor_description_silver=Protects against undead
 tooltip.tool_description_silver=Deals extra damage to undead
+
+tooltip.bewitchment:athame=This ceremonial dagger also allows you to obtain special loot from mobs.
+
+tooltip.bewitchment:seed_aconitum=Seed from a poisonous plant
+tooltip.bewitchment:seed_asphodel=Seed from a plant of the dead
+tooltip.bewitchment:seed_belladonna=Seed from a herbaceous plant
+tooltip.bewitchment:seed_chrysanthemum=Seed from a powerful flower
+tooltip.bewitchment:seed_garlic=Seed from a smelly allium
+tooltip.bewitchment:seed_ginger=Seed from a flowering plant
+tooltip.bewitchment:seed_hellebore=Seed from a innocent-looking plant
+tooltip.bewitchment:seed_kelp=Spore from a large algae
+tooltip.bewitchment:seed_kenaf=Seed from a bamboo-like hibiscus
+tooltip.bewitchment:seed_lavender=Seed from a flowering plant
+tooltip.bewitchment:seed_mandrake=Seed from a plant with a strange root
+tooltip.bewitchment:seed_mint=Seed from a herbaceous plant
+tooltip.bewitchment:seed_sagebrush=Seed from a hardy shrub
+tooltip.bewitchment:seed_silphium=Seed from a strange fennel
+tooltip.bewitchment:seed_thistle=Seed from a thorny flower
+tooltip.bewitchment:seed_tulsi=Seed from a small herb
+tooltip.bewitchment:seed_white_sage=Seed from an evergreen perennial shrub
+tooltip.bewitchment:seed_wormwood=Seed from a weedy herb
+
+tooltip.bewitchment:aconitum=A poisonous flower used to hunt Lycanthropes
+tooltip.bewitchment:asphodel=Related to death and the afterlife, but not poisonous
+tooltip.bewitchment:belladonna=A highly toxic plant, this is a prime component of flying ointment
+tooltip.bewitchment:chrysanthemum=A rather popular flower, it is often linked with nobility
+tooltip.bewitchment:garlic=A common spice that keeps the undead at bay
+tooltip.bewitchment:ginger=An incredibly spicy root
+tooltip.bewitchment:hellebore=A beautiful and poisonous flower linked to demons
+tooltip.bewitchment:infested_wheat=An ill-looking crop
+tooltip.bewitchment:kelp=A tall algae, with connections to the sea
+tooltip.bewitchment:kenaf=A tall plant with useful fibers
+tooltip.bewitchment:lavender=Associated with purity and grace
+tooltip.bewitchment:mandrake=Used to amplify magical effects
+tooltip.bewitchment:mint=An herb with a cooling effect
+tooltip.bewitchment:sagebrush=An herb associated with purification
+tooltip.bewitchment:silphium=A strange and unusual fennel
+tooltip.bewitchment:thistle=A thorny but beautiful flower
+tooltip.bewitchment:tulsi=A small herb considered sacred by some
+tooltip.bewitchment:white_sage=Used as an aid in exorcisms
+tooltip.bewitchment:witchweed=A small herb that grows over other crops
+tooltip.bewitchment:wormwood=An incredibly weedy herb
