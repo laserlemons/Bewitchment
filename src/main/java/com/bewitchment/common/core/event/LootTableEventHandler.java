@@ -11,7 +11,18 @@ public class LootTableEventHandler {
 
 	@SubscribeEvent
 	public void lootLoad(LootTableLoadEvent evt) {
-		if (evt.getName().equals(LootTableList.CHESTS_SIMPLE_DUNGEON)) {
+		if (evt.getName().equals(LootTableList.CHESTS_SIMPLE_DUNGEON) ||
+				evt.getName().equals(LootTableList.CHESTS_ABANDONED_MINESHAFT) ||
+				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_CORRIDOR) ||
+				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_CROSSING) ||
+				evt.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE) ||
+				evt.getName().equals(LootTableList.CHESTS_VILLAGE_BLACKSMITH) ||
+				evt.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE) ||
+				evt.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID) ||
+				evt.getName().equals(LootTableList.CHESTS_IGLOO_CHEST) ||
+				evt.getName().equals(LootTableList.CHESTS_END_CITY_TREASURE) ||
+				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_LIBRARY) ||
+				evt.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)) {
 			evt.getTable().addPool(
 					new LootPool(new LootEntry[]{
 							new LootEntryTable(
@@ -44,6 +55,12 @@ public class LootTableEventHandler {
 				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_CORRIDOR) ||
 				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_CROSSING) ||
 				evt.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE) ||
+				evt.getName().equals(LootTableList.CHESTS_VILLAGE_BLACKSMITH) ||
+				evt.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE) ||
+				evt.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID) ||
+				evt.getName().equals(LootTableList.CHESTS_IGLOO_CHEST) ||
+				evt.getName().equals(LootTableList.CHESTS_END_CITY_TREASURE) ||
+				evt.getName().equals(LootTableList.CHESTS_STRONGHOLD_LIBRARY) ||
 				evt.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)
 				) { //Not sure if this is messy or better looking than the alternative.
 			evt.getTable().addPool(new LootPool(new LootEntry[]{

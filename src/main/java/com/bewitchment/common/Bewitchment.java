@@ -124,6 +124,7 @@ public class Bewitchment {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		MinecraftForge.EVENT_BUS.register(new Fluids.Handler());
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new LootTableEventHandler());
 		ApiInstance.initAPI();
